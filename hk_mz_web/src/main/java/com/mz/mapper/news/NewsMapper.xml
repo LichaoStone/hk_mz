@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.news.NewsMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.news.News" >
+		<result column="news_id" property="newsId"/>
+		<result column="news_title" property="newsTitle"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="html_url" property="htmlUrl"/>
+		<result column="source_type" property="sourceType"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="classify_id" property="classifyId"/>
+		<result column="key_words" property="keyWords"/>
+	</resultMap>
+	
+	<!-- t_news table all fields -->
+	<sql id="Base_Column_List" >
+			news_id,
+			news_title,
+			img_url,
+			html_url,
+			source_type,
+			status,
+			create_time,
+			classify_id,
+			key_words
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertNews" parameterType="com.mz.bean.news.News" >
+		insert into t_news(
+				news_id,
+				news_title,
+				img_url,
+				html_url,
+				source_type,
+				status,
+				create_time,
+				classify_id,
+				key_words
+		)values (
+				#{newsId,jdbcType=VARCHAR},
+				#{newsTitle,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR},
+				#{htmlUrl,jdbcType=VARCHAR},
+				#{sourceType,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{classifyId,jdbcType=VARCHAR},
+				#{keyWords,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateNews" parameterType="com.mz.bean.news.News" >
+	 	update t_news set
+	 
+				news_title = #{newsTitle,jdbcType=VARCHAR},
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+				html_url = #{htmlUrl,jdbcType=VARCHAR},
+				source_type = #{sourceType,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				classify_id = #{classifyId,jdbcType=VARCHAR},
+				key_words = #{keyWords,jdbcType=VARCHAR}
+		where news_id = #{newsId}
+	</update>
+	
+	<delete id="deleteNews" parameterType="com.mz.bean.news.News">
+		delete from t_news where news_id = #{newsId}
+	</delete> 
+
+	<update id="updateNewsBySelective" parameterType="com.mz.bean.news.News" >
+		update t_news  
+		<set> 
+					<if test="newsTitle != null and newsTitle != ''">
+					    news_title = #{newsTitle},
+					</if>
+					<if test="imgUrl != null and imgUrl != ''">
+					    img_url = #{imgUrl},
+					</if>
+					<if test="htmlUrl != null and htmlUrl != ''">
+					    html_url = #{htmlUrl},
+					</if>
+					<if test="sourceType != null">
+					    source_type = #{sourceType},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="classifyId != null">
+					    classify_id = #{classifyId},
+					</if>
+					<if test="keyWords != null and keyWords != ''">
+					    key_words = #{keyWords},
+					</if>
+		</set>
+		where news_id = #{newsId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="newsId != null">
+				    and news_id = #{newsId}
+				</if>
+				<if test="newsTitle != null and newsTitle != ''">
+				    and news_title = #{newsTitle}
+				</if>
+				<if test="imgUrl != null and imgUrl != ''">
+				    and img_url = #{imgUrl}
+				</if>
+				<if test="htmlUrl != null and htmlUrl != ''">
+				    and html_url = #{htmlUrl}
+				</if>
+				<if test="sourceType != null">
+				    and source_type = #{sourceType}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="classifyId != null">
+				    and classify_id = #{classifyId}
+				</if>
+				<if test="keyWords != null and keyWords != ''">
+				    and key_words = #{keyWords}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.news.vo.NewsVo" >
+	
+	</resultMap>
+	<!-- t_news 信息 -->
+	<select id="getNewsVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		SELECT
+			news_id,
+			news_title,
+			img_url,
+			html_url,
+			n.`status`,
+			n.create_time,
+			classify_name,
+		    key_words,
+			IFNULL(platform_name,'抓取') as platform_name
+		FROM
+			`t_news` n
+		LEFT JOIN t_classify f ON n.classify_id = f.classify_id
+		LEFT JOIN t_platform p on n.source_type = p.platform_id
+		where 1=1 and news_id = #{newsId}
+	</select>
+	 
+	 <select id="getNewsCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_news 
+		where 1=1
+		<trim  suffixOverrides="AND" >
+				<if test="newsTitle != null and newsTitle != ''">
+				    AND news_title = #{newsTitle}
+				</if>
+				<if test="beginTime != null and beginTime != ''">
+				   <![CDATA[
+					AND n.CREATE_TIME >= #{beginTime}
+					]]>
+				</if>
+				<if test="endTime != null and endTime != ''">
+				   <![CDATA[
+					AND n.CREATE_TIME <= #{endTime}
+					]]>
+				</if>
+				<if test="keyWords != null and keyWords != ''">
+				    AND key_words like   (concat('%',#{keyWords},'%'))
+				</if>
+		</trim>
+	</select>	
+	 
+	<!-- 查询t_news列表 -->
+	<select id="getNewsListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		SELECT
+			news_id,
+			news_title,
+			img_url,
+			html_url,
+			n.`status`,
+			n.create_time,
+			classify_name,
+		    key_words,
+			IFNULL(platform_name,'抓取') as platform_name
+		FROM
+			`t_news` n
+		LEFT JOIN t_classify f ON n.classify_id = f.classify_id
+		LEFT JOIN t_platform p on n.source_type = p.platform_id
+		where 1=1
+		<trim  suffixOverrides="AND" >
+				<if test="newsTitle != null and newsTitle != ''">
+				    AND news_title = #{newsTitle}
+				</if>
+				<if test="beginTime != null and beginTime != ''">
+				   <![CDATA[
+					AND n.CREATE_TIME >= #{beginTime}
+					]]>
+				</if>
+				<if test="endTime != null and endTime != ''">
+				   <![CDATA[
+					AND n.CREATE_TIME <= #{endTime}
+					]]>
+				</if>
+				<if test="keyWords != null and keyWords != ''">
+				    AND key_words like   (concat('%',#{keyWords},'%'))
+				</if>
+		</trim>
+	</select>	
+</mapper>   

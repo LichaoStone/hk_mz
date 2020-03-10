@@ -1,0 +1,164 @@
+.video-js {
+	    width: 100%;
+	    height: 100%;
+}
+    
+.add_arrow{
+	color: #5868DD;
+	transition: color .25s;
+	position: relative;
+}
+   
+.add_arrow::before{
+   content: '';
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   width: 12px;
+   border-top: 1px solid;
+			margin-top: 6px;
+}
+
+.add_arrow::after {
+   content: '';
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   height: 12px;
+   border-left: 1px solid;
+   margin-left: 6px;
+}
+      
+.table-tab{
+   	cursor: pointer;
+   	float:left;
+   	width:100px;
+   	height: 40px;
+   	border:1px solid #5868DD;
+   	background-color: #FFFFFF;
+   	text-align:center;
+   	padding-top:6px;
+   	color:#5868DD;
+   	border-radius:4px 0px 0px 4px;
+   }
+   
+.table-tab-selected{
+	background-color: #5868DD;
+	color:#FFFFFF;
+}
+   
+.index-td{
+	width:10%;
+}
+
+.video-name-td{
+	color:#4D5582;
+	width:15%;
+}
+   
+ .time-td{
+ 	width:45%;
+ }
+ .time-length-td{
+ 	width:20%;
+ }
+   
+ .search-btn-span-retailoring{
+    float: right;
+	width: 80px;
+	height: 40px;
+	background: #FAFAFA;
+	border-radius: 4px;
+	text-align: -webkit-center;
+	color: #5868DD;
+	cursor: pointer;
+	border:1px solid #5868DD;
+	line-height: 2.5;
+ }
+ 
+ .bootstrap-table .table.table-no-bordered{
+ 	    border: none;
+ }
+   
+.bootstrap-table .table.table-no-bordered > tbody > tr > td {
+	 border: none;
+	 border-bottom: none;
+	 vertical-align: middle;
+	 height: 40px;
+}
+   
+.video-add-div{
+	width:170px;
+	height:155px;
+	border:2px solid #D4D4D4;
+	float:left;
+	margin-bottom:15px;
+	cursor: pointer;
+}
+   
+.video-add-div-selected{
+	border:2px solid #5868DD;
+}
+   
+.video-slider {
+	padding: 10px 0;
+	margin: 35px 0 0 0;
+}
+
+.well {
+	background-color: #E0E0E0;
+}
+
+.video-watermark-outer-div{
+	border:1px solid red;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width:100%;
+	height: 80%;
+}
+
+.video-watermark-inner-div{
+	border: 1px solid green;
+	width:40px;
+	height:40px;
+}
+
+.video-watermark-img{
+  	display:none;
+}
+.video-watermark--row{
+	width:100%;
+	height:33%;
+}
+.video-watermark-cloumn{
+	float: left;
+    width: 33%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   /** visibility:hidden;**/
+}
+
+.video-edit-section-span{
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:#000000;
+	line-height:20px;
+	opacity: 0.85;
+}
+
+.video-gettime-span{
+	font-size:12px;
+	line-height:17px;
+	color:#000000;
+	opacity: 0.6;
+}
+
+.video-watermark-word{
+	display:none;
+	word-break:break-word;
+}

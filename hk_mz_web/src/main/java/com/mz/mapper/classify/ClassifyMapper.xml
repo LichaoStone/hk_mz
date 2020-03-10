@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.classify.ClassifyMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.classify.Classify" >
+		<result column="classify_id" property="classifyId"/>
+		<result column="classify_name" property="classifyName"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<!-- t_classify table all fields -->
+	<sql id="Base_Column_List" >
+			classify_id,
+			classify_name,
+			status,
+			create_time
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertClassify" parameterType="com.mz.bean.classify.Classify" >
+		insert into t_classify(
+				classify_id,
+				classify_name,
+				status,
+				create_time
+		)values (
+				#{classifyId,jdbcType=VARCHAR},
+				#{classifyName,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateClassify" parameterType="com.mz.bean.classify.Classify" >
+	 	update t_classify set
+	 
+				classify_name = #{classifyName,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR}
+		where classify_id = #{classifyId}
+	</update>
+	
+	<delete id="deleteClassify" parameterType="com.mz.bean.classify.Classify">
+		delete from t_classify where classify_id = #{classifyId}
+	</delete> 
+
+	<update id="updateClassifyBySelective" parameterType="com.mz.bean.classify.Classify" >
+		update t_classify  
+		<set> 
+					<if test="classifyName != null and classifyName != ''">
+					    classify_name = #{classifyName},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+		</set>
+		where classify_id = #{classifyId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="classifyId != null">
+				    and classify_id = #{classifyId}
+				</if>
+				<if test="classifyName != null and classifyName != ''">
+				    and classify_name = #{classifyName}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.classify.vo.ClassifyVo" >
+	
+	</resultMap>
+	<!-- t_classify 信息 -->
+	<select id="getClassifyVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_classify
+		where classify_id = #{classifyId}
+	</select>
+	 
+	 <select id="getClassifyCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_classify 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_classify列表 -->
+	<select id="getClassifyListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_classify 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

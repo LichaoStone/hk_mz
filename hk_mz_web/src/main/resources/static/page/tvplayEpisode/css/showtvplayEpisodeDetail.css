@@ -1,0 +1,30 @@
+.select_font_oper{
+	display: inline-block;
+	width:70px;
+	height:30px;
+	background:rgba(88,104,221,1);
+	border-radius:2px;
+	border:1px solid rgba(88,104,221,1);
+	text-align: center;
+	line-height: 30px;
+	cursor:pointer;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	font-size:14px;
+	color:rgba(255,255,255,1);
+}
+.unselected_font_opr{
+	display: inline-block;
+	width:70px;
+	height:30px;
+	background:rgba(255,255,255,1);
+	border-radius:2px;
+	border:1px solid rgba(88,104,221,1);
+	text-align: center;
+	line-height: 30px;
+	cursor:pointer;
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(88,104,221,1);
+}

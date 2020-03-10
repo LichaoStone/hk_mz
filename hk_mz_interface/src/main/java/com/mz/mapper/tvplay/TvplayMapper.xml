@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.tvplay.TvplayMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.tvplay.Tvplay" >
+		<result column="tvplay_id" property="tvplayId"/>
+		<result column="tvplay_name" property="tvplayName"/>
+		<result column="copy_begin_time" property="copyBeginTime"/>
+		<result column="copy_end_time" property="copyEndTime"/>
+		<result column="show_time" property="showTime"/>
+		<result column="tvplay_num" property="tvplayNum"/>
+		<result column="tvplay_tag" property="tvplayTag"/>
+		<result column="director" property="director"/>
+		<result column="national" property="national"/>
+		<result column="language" property="language"/>
+		<result column="main_actor" property="mainActor"/>
+		<result column="subdiscription" property="subdiscription"/>
+		<result column="import_num" property="importNum"/>
+		<result column="complate_num" property="complateNum"/>
+		<result column="create_time" property="createTime"/>
+		<result column="user_id" property="userId"/>
+		<result column="source_id" property="sourceId"/>
+		<result column="type" property="type"/>
+	</resultMap>
+	
+	<!-- t_tvplay table all fields -->
+	<sql id="Base_Column_List" >
+			tvplay_id,
+			tvplay_name,
+			copy_begin_time,
+			copy_end_time,
+			show_time,
+			tvplay_num,
+			tvplay_tag,
+			director,
+			national,
+			language,
+			main_actor,
+			subdiscription,
+			import_num,
+			complate_num,
+			create_time,
+			user_id,
+			source_id,
+			type
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertTvplay" parameterType="com.mz.bean.tvplay.Tvplay" >
+		insert into t_tvplay(
+				tvplay_id,
+				tvplay_name,
+				copy_begin_time,
+				copy_end_time,
+				show_time,
+				tvplay_num,
+				tvplay_tag,
+				director,
+				national,
+				language,
+				main_actor,
+				subdiscription,
+				import_num,
+				complate_num,
+				create_time,
+				user_id,
+				source_id,
+				type
+		)values (
+				#{tvplayId,jdbcType=VARCHAR},
+				#{tvplayName,jdbcType=VARCHAR},
+				#{copyBeginTime,jdbcType=VARCHAR},
+				#{copyEndTime,jdbcType=VARCHAR},
+				#{showTime,jdbcType=VARCHAR},
+				#{tvplayNum,jdbcType=VARCHAR},
+				#{tvplayTag,jdbcType=VARCHAR},
+				#{director,jdbcType=VARCHAR},
+				#{national,jdbcType=VARCHAR},
+				#{language,jdbcType=VARCHAR},
+				#{mainActor,jdbcType=VARCHAR},
+				#{subdiscription,jdbcType=VARCHAR},
+				#{importNum,jdbcType=VARCHAR},
+				#{complateNum,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{sourceId,jdbcType=VARCHAR},
+				#{type,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateTvplay" parameterType="com.mz.bean.tvplay.Tvplay" >
+	 	update t_tvplay set
+	 
+				tvplay_name = #{tvplayName,jdbcType=VARCHAR},
+				copy_begin_time = #{copyBeginTime,jdbcType=VARCHAR},
+				copy_end_time = #{copyEndTime,jdbcType=VARCHAR},
+				show_time = #{showTime,jdbcType=VARCHAR},
+				tvplay_num = #{tvplayNum,jdbcType=VARCHAR},
+				tvplay_tag = #{tvplayTag,jdbcType=VARCHAR},
+				director = #{director,jdbcType=VARCHAR},
+				national = #{national,jdbcType=VARCHAR},
+				language = #{language,jdbcType=VARCHAR},
+				main_actor = #{mainActor,jdbcType=VARCHAR},
+				subdiscription = #{subdiscription,jdbcType=VARCHAR},
+				import_num = #{importNum,jdbcType=VARCHAR},
+				complate_num = #{complateNum,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				source_id = #{sourceId,jdbcType=VARCHAR},
+				type = #{type,jdbcType=VARCHAR}
+		where tvplay_id = #{tvplayId}
+	</update>
+	
+	<delete id="deleteTvplay" parameterType="com.mz.bean.tvplay.Tvplay">
+		delete from t_tvplay where tvplay_id = #{tvplayId}
+	</delete> 
+
+	<update id="updateTvplayBySelective" parameterType="com.mz.bean.tvplay.Tvplay" >
+		update t_tvplay  
+		<set> 
+					<if test="tvplayName != null and tvplayName != ''">
+					    tvplay_name = #{tvplayName},
+					</if>
+					<if test="copyBeginTime != null">
+					    copy_begin_time = #{copyBeginTime},
+					</if>
+					<if test="copyEndTime != null">
+					    copy_end_time = #{copyEndTime},
+					</if>
+					<if test="showTime != null">
+					    show_time = #{showTime},
+					</if>
+					<if test="tvplayNum != null">
+					    tvplay_num = #{tvplayNum},
+					</if>
+					<if test="tvplayTag != null and tvplayTag != ''">
+					    tvplay_tag = #{tvplayTag},
+					</if>
+					<if test="director != null and director != ''">
+					    director = #{director},
+					</if>
+					<if test="national != null and national != ''">
+					    national = #{national},
+					</if>
+					<if test="language != null and language != ''">
+					    language = #{language},
+					</if>
+					<if test="mainActor != null and mainActor != ''">
+					    main_actor = #{mainActor},
+					</if>
+					<if test="subdiscription != null and subdiscription != ''">
+					    subdiscription = #{subdiscription},
+					</if>
+					<if test="importNum != null">
+					    import_num = #{importNum},
+					</if>
+					<if test="complateNum != null">
+					    complate_num = #{complateNum},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="sourceId != null and sourceId != ''">
+					    source_id = #{sourceId},
+					</if>
+					<if test="type != null and type != ''">
+					    type = #{type},
+					</if>
+		</set>
+		where tvplay_id = #{tvplayId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="tvplayId != null">
+				    and tvplay_id = #{tvplayId}
+				</if>
+				<if test="tvplayName != null and tvplayName != ''">
+				    and tvplay_name = #{tvplayName}
+				</if>
+				<if test="copyBeginTime != null">
+				    and copy_begin_time = #{copyBeginTime}
+				</if>
+				<if test="copyEndTime != null">
+				    and copy_end_time = #{copyEndTime}
+				</if>
+				<if test="showTime != null">
+				    and show_time = #{showTime}
+				</if>
+				<if test="tvplayNum != null">
+				    and tvplay_num = #{tvplayNum}
+				</if>
+				<if test="tvplayTag != null and tvplayTag != ''">
+				    and tvplay_tag = #{tvplayTag}
+				</if>
+				<if test="director != null and director != ''">
+				    and director = #{director}
+				</if>
+				<if test="national != null and national != ''">
+				    and national = #{national}
+				</if>
+				<if test="language != null and language != ''">
+				    and language = #{language}
+				</if>
+				<if test="mainActor != null and mainActor != ''">
+				    and main_actor = #{mainActor}
+				</if>
+				<if test="subdiscription != null and subdiscription != ''">
+				    and subdiscription = #{subdiscription}
+				</if>
+				<if test="importNum != null">
+				    and import_num = #{importNum}
+				</if>
+				<if test="complateNum != null">
+				    and complate_num = #{complateNum}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="sourceId != null and sourceId != ''">
+				    and source_id = #{sourceId}
+				</if>
+				<if test="type != null and type != ''">
+				    and type = #{type}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.tvplay.vo.TvplayVo" >
+	
+	</resultMap>
+	<!-- t_tvplay 信息 -->
+	<select id="getTvplayVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_tvplay
+		where tvplay_id = #{tvplayId}
+	</select>
+	 
+	 <select id="getTvplayCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_tvplay 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_tvplay列表 -->
+	<select id="getTvplayListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_tvplay 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	<!-- 查询t_tvplay列表 -->
+	<select id="getTvplayListByTvplayIds" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_tvplay 
+		where tvplay_id in (
+			 <foreach collection="tvplayIds" item="item" index="index" open="" close="" separator=",">
+			 	#{item}
+			 </foreach>
+		)
+	</select>
+</mapper>   

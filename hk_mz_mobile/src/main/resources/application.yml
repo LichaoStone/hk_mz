@@ -1,0 +1,102 @@
+#logging:  
+#  config: classpath:logback.xml  
+#  path: d:/logs  
+server:  
+  port: 8080 
+  tomcat:
+    basedir: target/tomcat 
+mysql:  
+    datasource:  
+        readSize: 1  
+        type: com.alibaba.druid.pool.DruidDataSource  
+        mapperLocations: classpath:/com/mz/mapper/*.xml  
+        configLocation: classpath:/mybatis-config.xml  
+        write:  
+           url: jdbc:mysql://10.10.49.11:3306/hk_mz?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false 
+           username: root  
+           password: 123abc 
+           driver-class-name: com.mysql.jdbc.Driver  
+           minIdle: 5  
+           maxActive: 100  
+           initialSize: 10  
+           maxWait: 60000  
+           timeBetweenEvictionRunsMillis: 60000  
+           minEvictableIdleTimeMillis: 300000  
+           validationQuery: select 'x'  
+           testWhileIdle: true  
+           testOnBorrow: false  
+           testOnReturn: false  
+           poolPreparedStatements: true  
+           maxPoolPreparedStatementPerConnectionSize: 50  
+           removeAbandoned: true  
+           filters: stat  
+        read01:  
+           url: jdbc:mysql://10.10.49.11:3306/hk_mz?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false
+           username: root  
+           password: 123abc  
+           driver-class-name: com.mysql.jdbc.Driver  
+           minIdle: 5  
+           maxActive: 100  
+           initialSize: 10  
+           maxWait: 60000  
+           timeBetweenEvictionRunsMillis: 60000  
+           minEvictableIdleTimeMillis: 300000  
+           validationQuery: select 'x'  
+           testWhileIdle: true  
+           testOnBorrow: false  
+           testOnReturn: false  
+           poolPreparedStatements: true  
+           maxPoolPreparedStatementPerConnectionSize: 50  
+           removeAbandoned: true  
+           filters: stat  
+#spring.session.store-type: JDBC
+#mybatis 配置
+mybatis:  
+     mapperLocations: classpath:/com/mz/mapper/*.xml  
+     typeAliasesPackage: com.mz.bean      
+     mapperScanPackage: com.mz.mapper  
+     configLocation: classpath:/mybatis-config.xml 
+     
+#redis 集群配置
+#spring:  
+#  redis:  
+#    cluster:  
+#      nodes:  
+#        - 127.0.0.1:7000  
+#        - 127.0.0.1:7001  
+#        - 127.0.0.1:7002  
+#        - 127.0.0.1:7003  
+#        - 127.0.0.1:7004  
+#        - 127.0.0.1:7005  
+
+#jedis 配置
+jedis:  
+  pool:  
+    host: 10.10.49.3  
+    port: 6379 
+    password:  
+    config :  
+      maxTotal: 5  
+      maxIdle: 5  
+      maxWaitMillis : 100000    
+#security: 
+#  basic:
+#    enabled: false
+#    ignored: /css/**
+#management: 
+#  security:
+#    enabled: false  
+spring:
+  mvc:
+   view:
+    prefix: /views/
+    suffix: .jsp 
+  session:  
+    store-type: redis
+zookeeper:
+  address: 127.0.0.1:2181
+pushUrl: 127.0.0.1/
+
+
+
+

@@ -1,0 +1,6 @@
+*.prefs
+hk_mz_common/.settings/org.eclipse.wst.common.project.facet.core.xml
+hk_mz_interface/.settings/org.eclipse.wst.common.project.facet.core.xml
+hk_mz_web/.settings/org.eclipse.wst.common.project.facet.core.xml
+hk_mz_common/.classpath
+hk_mz_web/.classpath

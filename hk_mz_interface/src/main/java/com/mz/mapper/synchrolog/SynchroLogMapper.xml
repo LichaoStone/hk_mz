@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.synchrolog.SynchroLogMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.synchrolog.SynchroLog" >
+		<result column="synchro_log_id" property="synchroLogId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="content_type" property="contentType"/>
+		<result column="content_id" property="contentId"/>
+		<result column="user_id" property="userId"/>
+		<result column="platform_id" property="platformId"/>
+		<result column="status" property="status"/>
+		<result column="faild_reason" property="faildReason"/>
+	</resultMap>
+	
+	<!-- t_synchro_log table all fields -->
+	<sql id="Base_Column_List" >
+			synchro_log_id,
+			create_time,
+			content_type,
+			content_id,
+			user_id,
+			platform_id,
+			status,
+			faild_reason
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertSynchroLog" parameterType="com.mz.bean.synchrolog.SynchroLog" >
+		insert into t_synchro_log(
+				synchro_log_id,
+				create_time,
+				content_type,
+				content_id,
+				user_id,
+				platform_id,
+				status,
+				faild_reason
+		)values (
+				#{synchroLogId,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{contentType,jdbcType=VARCHAR},
+				#{contentId,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{platformId,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{faildReason,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateSynchroLog" parameterType="com.mz.bean.synchrolog.SynchroLog" >
+	 	update t_synchro_log set
+	 
+				create_time = #{createTime,jdbcType=VARCHAR},
+				content_type = #{contentType,jdbcType=VARCHAR},
+				content_id = #{contentId,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				platform_id = #{platformId,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				faild_reason = #{faildReason,jdbcType=VARCHAR}
+		where synchro_log_id = #{synchroLogId}
+	</update>
+	
+	<delete id="deleteSynchroLog" parameterType="com.mz.bean.synchrolog.SynchroLog">
+		delete from t_synchro_log where synchro_log_id = #{synchroLogId}
+	</delete> 
+
+	<update id="updateSynchroLogBySelective" parameterType="com.mz.bean.synchrolog.SynchroLog" >
+		update t_synchro_log  
+		<set> 
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="contentType != null and contentType != ''">
+					    content_type = #{contentType},
+					</if>
+					<if test="contentId != null">
+					    content_id = #{contentId},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="platformId != null">
+					    platform_id = #{platformId},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="faildReason != null and faildReason != ''">
+					    faild_reason = #{faildReason},
+					</if>
+		</set>
+		where synchro_log_id = #{synchroLogId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="synchroLogId != null">
+				    and synchro_log_id = #{synchroLogId}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="contentType != null and contentType != ''">
+				    and content_type = #{contentType}
+				</if>
+				<if test="contentId != null">
+				    and content_id = #{contentId}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="platformId != null">
+				    and platform_id = #{platformId}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="faildReason != null and faildReason != ''">
+				    and faild_reason = #{faildReason}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.synchrolog.vo.SynchroLogVo" >
+	
+	</resultMap>
+	<!-- t_synchro_log 信息 -->
+	<select id="getSynchroLogVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_synchro_log
+		where synchro_log_id = #{synchroLogId}
+	</select>
+	 
+	 <select id="getSynchroLogCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_synchro_log 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_synchro_log列表 -->
+	<select id="getSynchroLogListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_synchro_log 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

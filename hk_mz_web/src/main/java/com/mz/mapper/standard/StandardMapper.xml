@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.standard.StandardMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.standard.Standard" >
+		<result column="standard_id" property="standardId"/>
+		<result column="standard_name" property="standardName"/>
+		<result column="resolution" property="resolution"/>
+		<result column="video_coding" property="videoCoding"/>
+		<result column="video_bit_rate" property="videoBitRate"/>
+		<result column="frame_rate" property="frameRate"/>
+		<result column="sampling_rate" property="samplingRate"/>
+		<result column="audio_coding" property="audioCoding"/>
+		<result column="audio_bit_rate" property="audioBitRate"/>
+	</resultMap>
+	
+	<!-- t_standard table all fields -->
+	<sql id="Base_Column_List" >
+			standard_id,
+			standard_name,
+			resolution,
+			video_coding,
+			video_bit_rate,
+			frame_rate,
+			sampling_rate,
+			audio_coding,
+			audio_bit_rate
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertStandard" parameterType="com.mz.bean.standard.Standard" >
+		insert into t_standard(
+				standard_id,
+				standard_name,
+				resolution,
+				video_coding,
+				video_bit_rate,
+				frame_rate,
+				sampling_rate,
+				audio_coding,
+				audio_bit_rate
+		)values (
+				#{standardId,jdbcType=VARCHAR},
+				#{standardName,jdbcType=VARCHAR},
+				#{resolution,jdbcType=VARCHAR},
+				#{videoCoding,jdbcType=VARCHAR},
+				#{videoBitRate,jdbcType=VARCHAR},
+				#{frameRate,jdbcType=VARCHAR},
+				#{samplingRate,jdbcType=VARCHAR},
+				#{audioCoding,jdbcType=VARCHAR},
+				#{audioBitRate,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateStandard" parameterType="com.mz.bean.standard.Standard" >
+	 	update t_standard set
+	 
+				standard_name = #{standardName,jdbcType=VARCHAR},
+				resolution = #{resolution,jdbcType=VARCHAR},
+				video_coding = #{videoCoding,jdbcType=VARCHAR},
+				video_bit_rate = #{videoBitRate,jdbcType=VARCHAR},
+				frame_rate = #{frameRate,jdbcType=VARCHAR},
+				sampling_rate = #{samplingRate,jdbcType=VARCHAR},
+				audio_coding = #{audioCoding,jdbcType=VARCHAR},
+				audio_bit_rate = #{audioBitRate,jdbcType=VARCHAR}
+		where standard_id = #{standardId}
+	</update>
+	
+	<delete id="deleteStandard" parameterType="com.mz.bean.standard.Standard">
+		delete from t_standard where standard_id = #{standardId}
+	</delete> 
+
+	<update id="updateStandardBySelective" parameterType="com.mz.bean.standard.Standard" >
+		update t_standard  
+		<set> 
+					<if test="standardName != null and standardName != ''">
+					    standard_name = #{standardName},
+					</if>
+					<if test="resolution != null and resolution != ''">
+					    resolution = #{resolution},
+					</if>
+					<if test="videoCoding != null and videoCoding != ''">
+					    video_coding = #{videoCoding},
+					</if>
+					<if test="videoBitRate != null and videoBitRate != ''">
+					    video_bit_rate = #{videoBitRate},
+					</if>
+					<if test="frameRate != null and frameRate != ''">
+					    frame_rate = #{frameRate},
+					</if>
+					<if test="samplingRate != null and samplingRate != ''">
+					    sampling_rate = #{samplingRate},
+					</if>
+					<if test="audioCoding != null and audioCoding != ''">
+					    audio_coding = #{audioCoding},
+					</if>
+					<if test="audioBitRate != null and audioBitRate != ''">
+					    audio_bit_rate = #{audioBitRate},
+					</if>
+		</set>
+		where standard_id = #{standardId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="standardId != null">
+				    and standard_id = #{standardId}
+				</if>
+				<if test="standardName != null and standardName != ''">
+				    and standard_name = #{standardName}
+				</if>
+				<if test="resolution != null and resolution != ''">
+				    and resolution = #{resolution}
+				</if>
+				<if test="videoCoding != null and videoCoding != ''">
+				    and video_coding = #{videoCoding}
+				</if>
+				<if test="videoBitRate != null and videoBitRate != ''">
+				    and video_bit_rate = #{videoBitRate}
+				</if>
+				<if test="frameRate != null and frameRate != ''">
+				    and frame_rate = #{frameRate}
+				</if>
+				<if test="samplingRate != null and samplingRate != ''">
+				    and sampling_rate = #{samplingRate}
+				</if>
+				<if test="audioCoding != null and audioCoding != ''">
+				    and audio_coding = #{audioCoding}
+				</if>
+				<if test="audioBitRate != null and audioBitRate != ''">
+				    and audio_bit_rate = #{audioBitRate}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.standard.vo.StandardVo" >
+	
+	</resultMap>
+	<!-- t_standard 信息 -->
+	<select id="getStandardVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_standard
+		where standard_id = #{standardId}
+	</select>
+	 
+	 <select id="getStandardCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_standard 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_standard列表 -->
+	<select id="getStandardListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_standard 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

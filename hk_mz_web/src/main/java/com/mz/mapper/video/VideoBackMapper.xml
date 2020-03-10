@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.video.VideoBackMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.video.VideoBack" >
+		<result column="video_back_id" property="videoBackId"/>
+		<result column="video_name" property="videoName"/>
+		<result column="file_size" property="fileSize"/>
+		<result column="resolution" property="resolution"/>
+		<result column="video_bit_rate" property="videoBitRate"/>
+		<result column="create_time" property="createTime"/>
+		<result column="activity_id" property="activityId"/>
+		<result column="video_url" property="videoUrl"/>
+	</resultMap>
+	
+	<!-- t_video_back table all fields -->
+	<sql id="Base_Column_List" >
+			video_back_id,
+			video_name,
+			file_size,
+			resolution,
+			video_bit_rate,
+			create_time,
+			activity_id,
+			video_url
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertVideoBack" parameterType="com.mz.bean.video.VideoBack" >
+		insert into t_video_back(
+				video_back_id,
+				video_name,
+				file_size,
+				resolution,
+				video_bit_rate,
+				create_time,
+				activity_id,
+				video_url
+		)values (
+				#{videoBackId,jdbcType=VARCHAR},
+				#{videoName,jdbcType=VARCHAR},
+				#{fileSize,jdbcType=VARCHAR},
+				#{resolution,jdbcType=VARCHAR},
+				#{videoBitRate,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{activityId,jdbcType=VARCHAR},
+				#{videoUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateVideoBack" parameterType="com.mz.bean.video.VideoBack" >
+	 	update t_video_back set
+	 
+				video_name = #{videoName,jdbcType=VARCHAR},
+				file_size = #{fileSize,jdbcType=VARCHAR},
+				resolution = #{resolution,jdbcType=VARCHAR},
+				video_bit_rate = #{videoBitRate,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				activity_id = #{activityId,jdbcType=VARCHAR},
+				video_url = #{videoUrl,jdbcType=VARCHAR}
+		where video_back_id = #{videoBackId}
+	</update>
+	
+	<delete id="deleteVideoBack" parameterType="com.mz.bean.video.VideoBack">
+		delete from t_video_back where video_back_id = #{videoBackId}
+	</delete> 
+
+	<update id="updateVideoBackBySelective" parameterType="com.mz.bean.video.VideoBack" >
+		update t_video_back  
+		<set> 
+					<if test="videoName != null and videoName != ''">
+					    video_name = #{videoName},
+					</if>
+					<if test="fileSize != null and fileSize != ''">
+					    file_size = #{fileSize},
+					</if>
+					<if test="resolution != null and resolution != ''">
+					    resolution = #{resolution},
+					</if>
+					<if test="videoBitRate != null and videoBitRate != ''">
+					    video_bit_rate = #{videoBitRate},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="activityId != null">
+					    activity_id = #{activityId},
+					</if>
+					<if test="videoUrl != null and videoUrl != ''">
+					    video_url = #{videoUrl},
+					</if>
+		</set>
+		where video_back_id = #{videoBackId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="videoBackId != null">
+				    and video_back_id = #{videoBackId}
+				</if>
+				<if test="videoName != null and videoName != ''">
+				    and video_name = #{videoName}
+				</if>
+				<if test="fileSize != null and fileSize != ''">
+				    and file_size = #{fileSize}
+				</if>
+				<if test="resolution != null and resolution != ''">
+				    and resolution = #{resolution}
+				</if>
+				<if test="videoBitRate != null and videoBitRate != ''">
+				    and video_bit_rate = #{videoBitRate}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="activityId != null">
+				    and activity_id = #{activityId}
+				</if>
+				<if test="videoUrl != null and videoUrl != ''">
+				    and video_url = #{videoUrl}
+				</if>
+		</trim>
+	</sql>
+	<!-- t_video_back 信息 -->
+	<select id="getVideoBackVoById"  resultMap="BaseResultMap" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_video_back
+		where video_back_id = #{videoBackId}
+	</select>
+	 
+	 <select id="getVideoBackCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_video_back 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_video_back列表 -->
+	<select id="getVideoBackListByQuery" resultMap="BaseResultMap"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_video_back 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

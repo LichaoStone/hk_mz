@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.activity.ActivityMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.activity.Activity" >
+		<result column="activity_id" property="activityId"/>
+		<result column="title" property="title"/>
+		<result column="platform_id" property="platformId"/>
+		<result column="status" property="status"/>
+		<result column="push_status" property="pushStatus"/>
+		<result column="create_time" property="createTime"/>
+		<result column="source_activity_id" property="sourceActivityId"/>
+		<result column="is_playback" property="isPlayback"/>
+		<result column="begin_time" property="beginTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="equipment" property="equipment"/>
+		<result column="push_time" property="pushTime"/>
+		<result column="push_url" property="pushUrl"/>
+		<result column="synchro_status" property="synchroStatus"/>
+		<result column="push_standard" property="pushStandard"/>
+	</resultMap>
+	
+	<!-- t_activity table all fields -->
+	<sql id="Base_Column_List" >
+			activity.activity_id,
+			activity.title,
+			activity.platform_id,
+			activity.status,
+			activity.push_status,
+			activity.create_time,
+			activity.source_activity_id,
+			activity.is_playback,
+			activity.begin_time,
+			activity.end_time,
+			activity.equipment,
+			activity.push_time,
+			activity.push_url,
+			activity.synchro_status,
+			activity.push_standard
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertActivity" parameterType="com.mz.bean.activity.Activity" >
+		insert into t_activity(
+				activity_id,
+				title,
+				platform_id,
+				status,
+				push_status,
+				create_time,
+				source_activity_id,
+				is_playback,
+				begin_time,
+				end_time,
+				equipment,
+				push_time,
+				push_url,
+				synchro_status,
+				push_standard
+		)values (
+				#{activityId,jdbcType=VARCHAR},
+				#{title,jdbcType=VARCHAR},
+				#{platformId,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{pushStatus,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{sourceActivityId,jdbcType=VARCHAR},
+				#{isPlayback,jdbcType=VARCHAR},
+				#{beginTime,jdbcType=VARCHAR},
+				#{endTime,jdbcType=VARCHAR},
+				#{equipment,jdbcType=VARCHAR},
+				#{pushTime,jdbcType=VARCHAR},
+				#{pushUrl,jdbcType=VARCHAR},
+				#{synchroStatus,jdbcType=VARCHAR},
+				#{pushStandard,jdbcType=VARCHAR}
+				
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateActivity" parameterType="com.mz.bean.activity.Activity" >
+	 	update t_activity set
+	 
+				title = #{title,jdbcType=VARCHAR},
+				platform_id = #{platformId,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				push_status = #{pushStatus,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				source_activity_id = #{sourceActivityId,jdbcType=VARCHAR},
+				is_playback = #{isPlayback,jdbcType=VARCHAR},
+				begin_time = #{beginTime,jdbcType=VARCHAR},
+				end_time = #{endTime,jdbcType=VARCHAR},
+				equipment = #{equipment,jdbcType=VARCHAR},
+				push_time = #{pushTime,jdbcType=VARCHAR},
+				push_url = #{pushUrl,jdbcType=VARCHAR},
+				synchro_status = #{synchroStatus,jdbcType=VARCHAR},
+				push_standard = #{pushStandard,jdbcType=VARCHAR}
+		where activity_id = #{activityId}
+	</update>
+	
+	<delete id="deleteActivity" parameterType="com.mz.bean.activity.Activity">
+		delete from t_activity where activity_id = #{activityId}
+	</delete> 
+
+	<update id="updateActivityBySelective" parameterType="com.mz.bean.activity.Activity" >
+		update t_activity  
+		<set> 
+					<if test="title != null and title != ''">
+					    title = #{title},
+					</if>
+					<if test="platformId != null">
+					    platform_id = #{platformId},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="pushStatus != null">
+					    push_status = #{pushStatus},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="sourceActivityId != null and sourceActivityId != ''">
+					    source_activity_id = #{sourceActivityId},
+					</if>
+					<if test="isPlayback != null">
+					    is_playback = #{isPlayback},
+					</if>
+					<if test="beginTime != null">
+					    begin_time = #{beginTime},
+					</if>
+					<if test="endTime != null">
+					    end_time = #{endTime},
+					</if>
+					<if test="equipment != null">
+					    equipment = #{equipment},
+					</if>
+					<if test="pushTime != null">
+					    push_time = #{pushTime},
+					</if>
+					<if test="pushUrl != null and pushUrl != ''">
+					    push_url = #{pushUrl},
+					</if>
+					<if test="synchroStatus != null">
+					    synchro_status = #{synchroStatus},
+					</if>
+					<if test="pushStandard != null">
+					    push_standard = #{pushStandard},
+					</if>
+					
+		</set>
+		where activity_id = #{activityId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="activityId != null">
+				    and  activity.activity_id = #{activityId}
+				</if>
+				<if test="title != null and title != ''">
+				    and activity.title = #{title}
+				</if>
+				<if test="platformId != null">
+				    and activity.platform_id = #{platformId}
+				</if>
+				<if test="status != null">
+				    and activity.status = #{status}
+				</if>
+				<if test="pushStatus != null">
+				    and activity.push_status = #{pushStatus}
+				</if>
+				<if test="createTime != null">
+				    and activity.create_time = #{createTime}
+				</if>
+				<if test="sourceActivityId != null and sourceActivityId != ''">
+				    and activity.source_activity_id = #{sourceActivityId}
+				</if>
+				<if test="isPlayback != null">
+				    and activity.is_playback = #{isPlayback}
+				</if>
+				<if test="beginTime != null">
+				    and activity.begin_time = #{beginTime}
+				</if>
+				<if test="endTime != null">
+				    and activity.end_time = #{endTime}
+				</if>
+				<if test="equipment != null">
+				    and activity.equipment = #{equipment}
+				</if>
+				<if test="pushTime != null">
+				    and activity.push_time = #{pushTime}
+				</if>
+				<if test="pushUrl != null and pushUrl != ''">
+				    and activity.push_url = #{pushUrl}
+				</if>
+				<if test="synchroStatus != null">
+				    and activity.synchro_status = #{synchroStatus}
+				</if>
+				<if test="pushStandard != null">
+				    and activity.push_standard = #{pushStandard}
+				</if>
+				
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.activity.vo.ActivityVo" >
+		<result column="video_back_id" property="videoBackId"/>
+		<result column="video_name" property="videoName"/>
+		<result column="file_size" property="fileSize"/>
+		<result column="resolution" property="resolution"/>
+		<result column="video_bit_rate" property="videoBitRate"/>
+		<result column="video_url" property="videoUrl"/>
+	</resultMap>
+	<!-- t_activity 信息 -->
+	<select id="getActivityVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_activity activity
+		where activity_id = #{activityId}
+	</select>
+	 
+	 <select id="getActivityCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_activity activity
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_activity列表 -->
+	<select id="getActivityListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>,
+		back.video_back_id,
+		back.video_name,
+		back.file_size,
+		back.resolution,
+		back.video_bit_rate,
+		back.video_url
+		from t_activity activity
+		left join t_video_back back on back.activity_id=activity.activity_id
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

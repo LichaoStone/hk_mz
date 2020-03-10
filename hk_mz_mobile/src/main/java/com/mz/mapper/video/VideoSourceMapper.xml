@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.video.VideoSourceMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.video.VideoSource" >
+		<result column="video_source_id" property="videoSourceId"/>
+		<result column="video_source_name" property="videoSourceName"/>
+		<result column="classify_id" property="classifyId"/>
+		<result column="user_id" property="userId"/>
+		<result column="video_url" property="videoUrl"/>
+		<result column="create_time" property="createTime"/>
+		<result column="resolution" property="resolution"/>
+		<result column="video_bit_rate" property="videoBitRate"/>
+		<result column="file_size" property="fileSize"/>
+		<result column="status" property="status"/>
+		<result column="is_clean" property="isClean"/>
+		<result column="delete_time" property="deleteTime"/>
+	</resultMap>
+	
+	<!-- t_video_source table all fields -->
+	<sql id="Base_Column_List" >
+			video_source_id,
+			video_source_name,
+			classify_id,
+			user_id,
+			video_url,
+			create_time,
+			resolution,
+			video_bit_rate,
+			file_size,
+			status,
+			is_clean,
+			delete_time
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertVideoSource" parameterType="com.mz.bean.video.VideoSource" >
+		insert into t_video_source(
+				video_source_id,
+				video_source_name,
+				classify_id,
+				user_id,
+				video_url,
+				create_time,
+				resolution,
+				video_bit_rate,
+				file_size,
+				status,
+				is_clean,
+				delete_time
+		)values (
+				#{videoSourceId,jdbcType=VARCHAR},
+				#{videoSourceName,jdbcType=VARCHAR},
+				#{classifyId,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{videoUrl,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{resolution,jdbcType=VARCHAR},
+				#{videoBitRate,jdbcType=VARCHAR},
+				#{fileSize,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{isClean,jdbcType=VARCHAR},
+				#{deleteTime,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateVideoSource" parameterType="com.mz.bean.video.VideoSource" >
+	 	update t_video_source set
+	 
+				video_source_name = #{videoSourceName,jdbcType=VARCHAR},
+				classify_id = #{classifyId,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				video_url = #{videoUrl,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				resolution = #{resolution,jdbcType=VARCHAR},
+				video_bit_rate = #{videoBitRate,jdbcType=VARCHAR},
+				file_size = #{fileSize,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				is_clean = #{isClean,jdbcType=VARCHAR},
+				delete_time = #{deleteTime,jdbcType=VARCHAR}
+		where video_source_id = #{videoSourceId}
+	</update>
+	
+	<delete id="deleteVideoSource" parameterType="com.mz.bean.video.VideoSource">
+		delete from t_video_source where video_source_id = #{videoSourceId}
+	</delete> 
+
+	<update id="updateVideoSourceBySelective" parameterType="com.mz.bean.video.VideoSource" >
+		update t_video_source  
+		<set> 
+					<if test="videoSourceName != null and videoSourceName != ''">
+					    video_source_name = #{videoSourceName},
+					</if>
+					<if test="classifyId != null">
+					    classify_id = #{classifyId},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="videoUrl != null and videoUrl != ''">
+					    video_url = #{videoUrl},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="resolution != null and resolution != ''">
+					    resolution = #{resolution},
+					</if>
+					<if test="videoBitRate != null and videoBitRate != ''">
+					    video_bit_rate = #{videoBitRate},
+					</if>
+					<if test="fileSize != null and fileSize != ''">
+					    file_size = #{fileSize},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="isClean != null">
+					    is_clean = #{isClean},
+					</if>
+					<if test="deleteTime != null">
+					    delete_time = #{deleteTime},
+					</if>
+		</set>
+		where video_source_id = #{videoSourceId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="videoSourceId != null">
+				    and video_source_id = #{videoSourceId}
+				</if>
+				<if test="videoSourceName != null and videoSourceName != ''">
+				    and video_source_name = #{videoSourceName}
+				</if>
+				<if test="classifyId != null">
+				    and classify_id = #{classifyId}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="videoUrl != null and videoUrl != ''">
+				    and video_url = #{videoUrl}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="resolution != null and resolution != ''">
+				    and resolution = #{resolution}
+				</if>
+				<if test="videoBitRate != null and videoBitRate != ''">
+				    and video_bit_rate = #{videoBitRate}
+				</if>
+				<if test="fileSize != null and fileSize != ''">
+				    and file_size = #{fileSize}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="isClean != null">
+				    and is_clean = #{isClean}
+				</if>
+				<if test="deleteTime != null">
+				    and delete_time = #{deleteTime}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.video.vo.VideoSourceVo" >
+	
+	</resultMap>
+	<!-- t_video_source 信息 -->
+	<select id="getVideoSourceVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_video_source
+		where video_source_id = #{videoSourceId}
+	</select>
+	 
+	 <select id="getVideoSourceCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_video_source 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_video_source列表 -->
+	<select id="getVideoSourceListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_video_source 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

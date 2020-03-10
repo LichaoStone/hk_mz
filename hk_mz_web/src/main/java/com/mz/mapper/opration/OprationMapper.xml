@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.opration.OprationMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.opration.Opration" >
+		<result column="operation_id" property="operationId"/>
+		<result column="operation_name" property="operationName"/>
+		<result column="menu_id" property="menuId"/>
+		<result column="order_num" property="orderNum"/>
+		<result column="operate_url" property="operateUrl"/>
+	</resultMap>
+	
+	<!-- t_opration table all fields -->
+	<sql id="Base_Column_List" >
+			operation_id,
+			operation_name,
+			menu_id,
+			order_num,
+			operate_url
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertOpration" parameterType="com.mz.bean.opration.Opration" >
+		insert into t_opration(
+				operation_id,
+				operation_name,
+				menu_id,
+				order_num,
+				operate_url
+		)values (
+				#{operationId,jdbcType=VARCHAR},
+				#{operationName,jdbcType=VARCHAR},
+				#{menuId,jdbcType=VARCHAR},
+				#{orderNum,jdbcType=VARCHAR},
+				#{operateUrl,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateOpration" parameterType="com.mz.bean.opration.Opration" >
+	 	update t_opration set
+	 
+				operation_name = #{operationName,jdbcType=VARCHAR},
+				menu_id = #{menuId,jdbcType=VARCHAR},
+				order_num = #{orderNum,jdbcType=VARCHAR},
+				operate_url = #{operateUrl,jdbcType=VARCHAR}
+		where operation_id = #{operationId}
+	</update>
+	
+	<delete id="deleteOpration" parameterType="com.mz.bean.opration.Opration">
+		delete from t_opration where operation_id = #{operationId}
+	</delete> 
+
+	<update id="updateOprationBySelective" parameterType="com.mz.bean.opration.Opration" >
+		update t_opration  
+		<set> 
+					<if test="operationName != null and operationName != ''">
+					    operation_name = #{operationName},
+					</if>
+					<if test="menuId != null">
+					    menu_id = #{menuId},
+					</if>
+					<if test="orderNum != null">
+					    order_num = #{orderNum},
+					</if>
+					<if test="operateUrl != null and operateUrl != ''">
+					    operate_url = #{operateUrl},
+					</if>
+		</set>
+		where operation_id = #{operationId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="operationId != null">
+				    and operation_id = #{operationId}
+				</if>
+				<if test="operationName != null and operationName != ''">
+				    and operation_name = #{operationName}
+				</if>
+				<if test="menuId != null">
+				    and menu_id = #{menuId}
+				</if>
+				<if test="orderNum != null">
+				    and order_num = #{orderNum}
+				</if>
+				<if test="operateUrl != null and operateUrl != ''">
+				    and operate_url = #{operateUrl}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.opration.vo.OprationVo" >
+	
+	</resultMap>
+	<!-- t_opration 信息 -->
+	<select id="getOprationVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_opration
+		where operation_id = #{operationId}
+	</select>
+	 
+	 <select id="getOprationCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_opration 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_opration列表 -->
+	<select id="getOprationListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_opration 
+		<include refid="Example_Where_Clause"/>
+	</select>
+	
+	<select id="getOprationUrlList" resultType="java.lang.String"  parameterType="Object">
+		select 
+			operate_url
+		from t_opration opration
+		left join t_permissions permissions on permissions.source_id = opration.operation_id
+		where permissions.role_id = #{roleId}
+	</select>
+		
+</mapper>   

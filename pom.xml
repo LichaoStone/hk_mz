@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.hk</groupId>
+  <artifactId>hk_mz</artifactId>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+  <name>hk_mz</name>
+  <description>hk_mz</description>  
+  <properties>  
+  	<!-- java  Encod-->
+    <java.version>1.8</java.version>
+	<compiler.charset>UTF-8</compiler.charset>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<spring-boot.version>1.5.7.RELEASE</spring-boot.version>
+	<shiro.version>1.2.6</shiro.version>
+  </properties>       
+  <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.7.RELEASE</version>
+  </parent>
+  <dependencies>    
+  	<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-dependencies</artifactId>
+      <version>1.5.7.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+ 	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-aop</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-cache</artifactId>
+	</dependency>
+	
+	<dependency>  
+	     <groupId>org.springframework.boot</groupId>  
+	     <artifactId>spring-boot-devtools</artifactId>  
+	     <optional>true</optional>  
+	</dependency>
+	<!-- 
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-mongodb</artifactId>
+	</dependency>
+	-->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-redis</artifactId>
+	</dependency>
+	<dependency>
+        <groupId>org.springframework.session</groupId>
+        <artifactId>spring-session</artifactId>
+    </dependency>
+    
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-jdbc</artifactId>
+	</dependency>
+      
+	
+	<dependency>
+		<groupId>org.mybatis.spring.boot</groupId>
+		<artifactId>mybatis-spring-boot-starter</artifactId>
+		<version>1.3.1</version>
+	</dependency>    
+	
+	  
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<scope>runtime</scope>
+	</dependency>
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>druid</artifactId>
+	    <version>0.2.19</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-tomcat</artifactId>
+		<scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<!-- 分页插件-->  
+    <dependency>  
+      <groupId>com.github.pagehelper</groupId>  
+      <artifactId>pagehelper</artifactId>  
+      <version>4.1.6</version>  
+    </dependency>
+        
+       <dependency>
+       	<groupId>org.springframework.boot</groupId>
+       	<artifactId>spring-boot-configuration-processor</artifactId>
+       	<optional>true</optional>
+       </dependency>
+       <dependency>
+       	<groupId>org.springframework.boot</groupId>
+       	<artifactId>spring-boot-configuration-processor</artifactId>
+       	<optional>true</optional>
+       </dependency>
+       <dependency>
+       	<groupId>org.springframework.boot</groupId>
+       	<artifactId>spring-boot-configuration-processor</artifactId>
+       	<optional>true</optional>
+       </dependency>
+       <dependency> 
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId> 
+	</dependency>
+	<dependency> 
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId> 
+	</dependency>
+       <dependency>  
+           <groupId>org.quartz-scheduler</groupId>  
+           <artifactId>quartz</artifactId>  
+           <version>2.2.1</version>  
+           <exclusions>  
+               <exclusion>  
+                   <artifactId>slf4j-api</artifactId>  
+                   <groupId>org.slf4j</groupId>  
+               </exclusion>  
+           </exclusions>  
+       </dependency>  
+       <dependency> 
+           <groupId>org.springframework</groupId>  
+           <artifactId>spring-context-support</artifactId>  
+       </dependency>  
+	<!-- common -->
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>3.2.1</version>
+	</dependency>
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.12</version>
+	</dependency>
+	<dependency>
+		<groupId>com.google.guava</groupId>
+		<artifactId>guava</artifactId>
+		<version>19.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	</dependency>
+	 
+	<dependency>
+	    <groupId>cglib</groupId>
+	    <artifactId>cglib-nodep</artifactId>
+	    <version>3.2.4</version>
+	</dependency> 
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi</artifactId>
+	    <version>3.9</version>
+	</dependency> 
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml</artifactId>
+	    <version>3.9</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-scratchpad</artifactId>
+	    <version>3.9</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.poi</groupId>
+	    <artifactId>poi-ooxml-schemas</artifactId>
+	    <version>3.9</version>
+	</dependency>
+	<dependency>
+	    <groupId>net.sourceforge.jexcelapi</groupId>
+	    <artifactId>jxl</artifactId>
+	    <version>2.6.12</version>
+	</dependency>
+	<!-- shiro -->
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-core</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-web</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-ehcache</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-spring</artifactId>
+		<version>${shiro.version}</version>
+	</dependency>
+	<dependency> 
+        <groupId>org.apache.tomcat.embed</groupId> 
+        <artifactId>tomcat-embed-jasper</artifactId> 
+        <scope>provided</scope> 
+    </dependency> 
+    <dependency>
+        <groupId>javax.servlet</groupId> 
+        <artifactId>jstl</artifactId> 
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	</dependency>
+	 
+	
+	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+	<dependency> 
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>1.2.51</version>
+	</dependency>   
+    <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+	
+	<!--json-lib-->   
+	<dependency>  
+	    <groupId>net.sf.json-lib</groupId>  
+	    <artifactId>json-lib</artifactId>  
+	    <version>2.4</version>  
+	    <classifier>jdk15</classifier>  
+	</dependency>
+   
+	 <dependency> 
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>  
+	</dependency>
+	  
+	 <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpcore</artifactId> 
+	</dependency>
+	 
+ 
+	<!--kafka相关 -->
+	<dependency>
+	    <groupId>org.apache.kafka</groupId>
+	    <artifactId>kafka_2.10</artifactId>
+	    <version>0.8.0</version>
+	</dependency>
+	  
+	  
+  </dependencies>
+  <modules>
+  	<module>hk_mz_web</module>
+  	<module>hk_mz_common</module>
+  	<module>hk_mz_bean</module>
+  	<module>hk_mz_interface</module>
+    <module>hk_mz_mobile</module>
+  </modules>
+</project>  

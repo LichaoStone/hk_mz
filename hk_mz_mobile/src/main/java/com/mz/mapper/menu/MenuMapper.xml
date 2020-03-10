@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.menu.MenuMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.menu.Menu" >
+		<result column="menu_id" property="menuId"/>
+		<result column="menu_name" property="menuName"/>
+		<result column="menu_url" property="menuUrl"/>
+		<result column="menu_icon" property="menuIcon"/>
+		<result column="status" property="status"/>
+		<result column="order_num" property="orderNum"/>
+		<result column="menu_level" property="menuLevel"/>
+		<result column="parent_id" property="parentId"/>
+	</resultMap>
+	
+	<!-- t_menu table all fields -->
+	<sql id="Base_Column_List" >
+			menu_id,
+			menu_name,
+			menu_url,
+			menu_icon,
+			status,
+			order_num,
+			menu_level,
+			parent_id
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertMenu" parameterType="com.mz.bean.menu.Menu" >
+		insert into t_menu(
+				menu_id,
+				menu_name,
+				menu_url,
+				menu_icon,
+				status,
+				order_num,
+				menu_level,
+				parent_id
+		)values (
+				#{menuId,jdbcType=VARCHAR},
+				#{menuName,jdbcType=VARCHAR},
+				#{menuUrl,jdbcType=VARCHAR},
+				#{menuIcon,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{orderNum,jdbcType=VARCHAR},
+				#{menuLevel,jdbcType=VARCHAR},
+				#{parentId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateMenu" parameterType="com.mz.bean.menu.Menu" >
+	 	update t_menu set
+	 
+				menu_name = #{menuName,jdbcType=VARCHAR},
+				menu_url = #{menuUrl,jdbcType=VARCHAR},
+				menu_icon = #{menuIcon,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				order_num = #{orderNum,jdbcType=VARCHAR},
+				menu_level = #{menuLevel,jdbcType=VARCHAR},
+				parent_id = #{parentId,jdbcType=VARCHAR}
+		where menu_id = #{menuId}
+	</update>
+	
+	<delete id="deleteMenu" parameterType="com.mz.bean.menu.Menu">
+		delete from t_menu where menu_id = #{menuId}
+	</delete> 
+
+	<update id="updateMenuBySelective" parameterType="com.mz.bean.menu.Menu" >
+		update t_menu  
+		<set> 
+					<if test="menuName != null and menuName != ''">
+					    menu_name = #{menuName},
+					</if>
+					<if test="menuUrl != null and menuUrl != ''">
+					    menu_url = #{menuUrl},
+					</if>
+					<if test="menuIcon != null and menuIcon != ''">
+					    menu_icon = #{menuIcon},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="orderNum != null">
+					    order_num = #{orderNum},
+					</if>
+					<if test="menuLevel != null">
+					    menu_level = #{menuLevel},
+					</if>
+					<if test="parentId != null">
+					    parent_id = #{parentId},
+					</if>
+		</set>
+		where menu_id = #{menuId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="menuId != null">
+				    and menu_id = #{menuId}
+				</if>
+				<if test="menuName != null and menuName != ''">
+				    and menu_name = #{menuName}
+				</if>
+				<if test="menuUrl != null and menuUrl != ''">
+				    and menu_url = #{menuUrl}
+				</if>
+				<if test="menuIcon != null and menuIcon != ''">
+				    and menu_icon = #{menuIcon}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="orderNum != null">
+				    and order_num = #{orderNum}
+				</if>
+				<if test="menuLevel != null">
+				    and menu_level = #{menuLevel}
+				</if>
+				<if test="parentId != null">
+				    and parent_id = #{parentId}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.menu.vo.MenuVo" >
+	
+	</resultMap>
+	<!-- t_menu 信息 -->
+	<select id="getMenuVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_menu
+		where menu_id = #{menuId}
+	</select>
+	 
+	 <select id="getMenuCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_menu 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_menu列表 -->
+	<select id="getMenuListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_menu 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

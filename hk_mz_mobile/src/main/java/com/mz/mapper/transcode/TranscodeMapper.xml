@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.transcode.TranscodeMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.transcode.Transcode" >
+		<result column="transcode_id" property="transcodeId"/>
+		<result column="video_source_id" property="videoSourceId"/>
+		<result column="video_transcode_id" property="videoTranscodeId"/>
+		<result column="standard_id" property="standardId"/>
+		<result column="video_url" property="videoUrl"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="create_time" property="createTime"/>
+		<result column="user_id" property="userId"/>
+		<result column="status" property="status"/>
+		<result column="reason" property="reason"/>
+		<result column="video_name" property="videoName"/>
+		<result column="file_size" property="fileSize"/>
+		<result column="video_long" property="videoLong"/>
+		<result column="classify_name" property="classifyName"/>
+	</resultMap>
+	
+	<!-- t_transcode table all fields -->
+	<sql id="Base_Column_List" >
+			transcode_id,
+			video_source_id,
+			video_transcode_id,
+			standard_id,
+			video_url,
+			img_url,
+			create_time,
+			user_id,
+			status,
+			reason,
+			video_name,
+			file_size,
+			video_long,
+			classify_name
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertTranscode" parameterType="com.mz.bean.transcode.Transcode" >
+		insert into t_transcode(
+				transcode_id,
+				video_source_id,
+				video_transcode_id,
+				standard_id,
+				video_url,
+				img_url,
+				create_time,
+				user_id,
+				status,
+				reason,
+				video_name,
+				file_size,
+				video_long,
+				classify_name
+		)values (
+				#{transcodeId,jdbcType=VARCHAR},
+				#{videoSourceId,jdbcType=VARCHAR},
+				#{videoTranscodeId,jdbcType=VARCHAR},
+				#{standardId,jdbcType=VARCHAR},
+				#{videoUrl,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{reason,jdbcType=VARCHAR},
+				#{videoName,jdbcType=VARCHAR},
+				#{fileSize,jdbcType=VARCHAR},
+				#{videoLong,jdbcType=VARCHAR},
+				#{classifyName,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateTranscode" parameterType="com.mz.bean.transcode.Transcode" >
+	 	update t_transcode set
+	 
+				video_source_id = #{videoSourceId,jdbcType=VARCHAR},
+				video_transcode_id = #{videoTranscodeId,jdbcType=VARCHAR},
+				standard_id = #{standardId,jdbcType=VARCHAR},
+				video_url = #{videoUrl,jdbcType=VARCHAR},
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				reason = #{reason,jdbcType=VARCHAR},
+				video_name = #{videoName,jdbcType=VARCHAR},
+				file_size = #{fileSize,jdbcType=VARCHAR},
+				video_long = #{videoLong,jdbcType=VARCHAR},
+				classify_name = #{classifyName,jdbcType=VARCHAR}
+		where transcode_id = #{transcodeId}
+	</update>
+	
+	<delete id="deleteTranscode" parameterType="com.mz.bean.transcode.Transcode">
+		delete from t_transcode where transcode_id = #{transcodeId}
+	</delete> 
+
+	<update id="updateTranscodeBySelective" parameterType="com.mz.bean.transcode.Transcode" >
+		update t_transcode  
+		<set> 
+					<if test="videoSourceId != null">
+					    video_source_id = #{videoSourceId},
+					</if>
+					<if test="videoTranscodeId != null">
+					    video_transcode_id = #{videoTranscodeId},
+					</if>
+					<if test="standardId != null">
+					    standard_id = #{standardId},
+					</if>
+					<if test="videoUrl != null and videoUrl != ''">
+					    video_url = #{videoUrl},
+					</if>
+					<if test="imgUrl != null and imgUrl != ''">
+					    img_url = #{imgUrl},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="status != null and status != ''">
+					    status = #{status},
+					</if>
+					<if test="reason != null and reason != ''">
+					    reason = #{reason},
+					</if>
+					<if test="videoName != null and videoName != ''">
+					    video_name = #{videoName},
+					</if>
+					<if test="fileSize != null and fileSize != ''">
+					    file_size = #{fileSize},
+					</if>
+					<if test="videoLong != null and videoLong != ''">
+					    video_long = #{videoLong},
+					</if>
+					<if test="classifyName != null and classifyName != ''">
+					    classify_name = #{classifyName},
+					</if>
+		</set>
+		where transcode_id = #{transcodeId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="transcodeId != null">
+				    and transcode_id = #{transcodeId}
+				</if>
+				<if test="videoSourceId != null">
+				    and video_source_id = #{videoSourceId}
+				</if>
+				<if test="videoTranscodeId != null">
+				    and video_transcode_id = #{videoTranscodeId}
+				</if>
+				<if test="standardId != null">
+				    and standard_id = #{standardId}
+				</if>
+				<if test="videoUrl != null and videoUrl != ''">
+				    and video_url = #{videoUrl}
+				</if>
+				<if test="imgUrl != null and imgUrl != ''">
+				    and img_url = #{imgUrl}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="status != null and status != ''">
+				    and status = #{status}
+				</if>
+				<if test="reason != null and reason != ''">
+				    and reason = #{reason}
+				</if>
+				<if test="videoName != null and videoName != ''">
+				    and video_name = #{videoName}
+				</if>
+				<if test="fileSize != null and fileSize != ''">
+				    and file_size = #{fileSize}
+				</if>
+				<if test="videoLong != null and videoLong != ''">
+				    and video_long = #{videoLong}
+				</if>
+				<if test="classifyName != null and classifyName != ''">
+				    and classify_name = #{classifyName}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.transcode.vo.TranscodeVo" >
+	
+	</resultMap>
+	<!-- t_transcode 信息 -->
+	<select id="getTranscodeVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_transcode
+		where transcode_id = #{transcodeId}
+	</select>
+	 
+	 <select id="getTranscodeCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_transcode 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_transcode列表 -->
+	<select id="getTranscodeListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_transcode 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

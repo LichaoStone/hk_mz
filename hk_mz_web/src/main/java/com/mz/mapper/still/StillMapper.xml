@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.still.StillMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.still.Still" >
+		<result column="still_id" property="stillId"/>
+		<result column="content_type" property="contentType"/>
+		<result column="content_id" property="contentId"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="order_num" property="orderNum"/>
+		<result column="create_time" property="createTime"/>
+		<result column="user_id" property="userId"/>
+	</resultMap>
+	
+	<!-- t_still table all fields -->
+	<sql id="Base_Column_List" >
+			still_id,
+			content_type,
+			content_id,
+			img_url,
+			order_num,
+			create_time,
+			user_id
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertStill" parameterType="com.mz.bean.still.Still" >
+		insert into t_still(
+				still_id,
+				content_type,
+				content_id,
+				img_url,
+				order_num,
+				create_time,
+				user_id
+		)values (
+				#{stillId,jdbcType=VARCHAR},
+				#{contentType,jdbcType=VARCHAR},
+				#{contentId,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR},
+				#{orderNum,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateStill" parameterType="com.mz.bean.still.Still" >
+	 	update t_still set
+	 
+				content_type = #{contentType,jdbcType=VARCHAR},
+				content_id = #{contentId,jdbcType=VARCHAR},
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+				order_num = #{orderNum,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR}
+		where still_id = #{stillId}
+	</update>
+	
+	<delete id="deleteStill" parameterType="com.mz.bean.still.Still">
+		delete from t_still where still_id = #{stillId}
+	</delete> 
+
+	<update id="updateStillBySelective" parameterType="com.mz.bean.still.Still" >
+		update t_still  
+		<set> 
+					<if test="contentType != null and contentType != ''">
+					    content_type = #{contentType},
+					</if>
+					<if test="contentId != null">
+					    content_id = #{contentId},
+					</if>
+					<if test="imgUrl != null and imgUrl != ''">
+					    img_url = #{imgUrl},
+					</if>
+					<if test="orderNum != null">
+					    order_num = #{orderNum},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+		</set>
+		where still_id = #{stillId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="stillId != null">
+				    and still_id = #{stillId}
+				</if>
+				<if test="contentType != null and contentType != ''">
+				    and content_type = #{contentType}
+				</if>
+				<if test="contentId != null">
+				    and content_id = #{contentId}
+				</if>
+				<if test="imgUrl != null and imgUrl != ''">
+				    and img_url = #{imgUrl}
+				</if>
+				<if test="orderNum != null">
+				    and order_num = #{orderNum}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.still.vo.StillVo" >
+	
+	</resultMap>
+	<!-- t_still 信息 -->
+	<select id="getStillVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_still
+		where still_id = #{stillId}
+	</select>
+	 
+	 <select id="getStillCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_still 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_still列表 -->
+	<select id="getStillListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_still 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

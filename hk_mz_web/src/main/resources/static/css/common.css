@@ -1,0 +1,371 @@
+.search_input{
+	height:40px;
+}
+.search_div{
+	background-color: #E7E7F3;
+	width: 80px;
+	margin-left: -4px;
+	display: -webkit-inline-box;
+	text-align: -webkit-center;    
+	padding-top: 4px;
+	height: 40px;
+}
+.search_select_span{
+	position: relative;
+	margin-left:30px;
+}
+.search_select{
+	padding-left:12px;
+	width:200px;
+	height:40px;
+	background:rgba(255,255,255,1);
+	border-radius:4px;
+	border:1px solid rgba(231,231,243,1);
+}
+.search_img_span{
+	position: absolute;
+	left: 173px;
+	top: 2px; 
+	width:15px;
+	height:16px;
+	display:inline-block;
+}
+.search_img{
+	width: 15px;
+}
+.search_btn{
+	width:80px;
+	height:40px;
+	background:rgba(88,104,221,1);
+	border-radius:4px;
+	color:rgba(255,255,255,1);
+	line-height:20px;
+	float: right;
+}
+.select {
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;  
+}
+/** 查询列表--检索样式 开始*/
+.search-title-span{
+	display:inline-block;
+	position:relative;
+	left:0px;
+	width:70px;
+	height:40px;
+	vertical-align:top; 
+}
+.search-title-font{
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(0,0,0,0.6);
+	height:14px;
+	font-size:14px;
+	line-height: 40px;
+}
+.search-input-container{
+	display:inline-block;
+	width:485px;
+	height:40px;
+	background:rgba(255,255,255,1);
+	border-radius:4px;
+	border:1px solid rgba(231,231,243,1);
+	position:relative;
+}
+.search-input {
+	width:393px;
+	height:100%;
+	/**font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif;
+	font-size: 12px;
+	color:#222222;
+	font-weight:normal;*/
+	margin-left:12px;
+	background-color: #fff;
+	background-image: none;
+	border:none;
+	outline:medium;
+}
+.search-link_btn {
+	font-family:"Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",Arial,sans-serif;
+	font-size: 14px;
+	color: #222222;
+	height: 100%;
+	position:absolute;
+	right:0px;
+}
+.search_div_btn{
+	background:rgba(247,248,250,1);
+	width: 80px;
+	height:100%;
+	text-align:center;
+	line-height:40px;
+}
+.senior-btn{
+	display:inline-block;
+	vertical-align:top; 
+	width:100px;
+	height:40px;
+	background:rgba(247,248,250,1);
+	border-radius:4px;
+	border:1px solid rgba(231,231,243,1);
+	margin-left:30px;
+}
+.senior_div_btn{
+	width:100px;
+	text-align:center;
+	line-height:40px;
+}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(162,170,197,1);
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+  	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(162,170,197,1);
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+	 font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(162,170,197,1);
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+  	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(162,170,197,1);
+}
+
+.search-btn-span-new {
+	background-color: #5868DD;
+	border-radius:4px;
+	width: 80px;
+    height: 40px;
+	line-height:37px;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+	font-family:"PingFangSC-Regular";
+	font-size: 14px;
+	color: rgba(255,255,255,1);
+	margin-right:10px;
+}
+
+.search-btn-span-new:hover {
+	background-color: #6476F4;
+	color: #ffffff;
+}
+
+.search-span-reset-btn {
+	background-color:  #ffffff; 
+	border:1px solid #5868DD;
+	border-radius:4px;
+	height:40px;
+	width:80px;
+	line-height:37px;
+	text-align:center;
+	display:-moz-inline-box;
+	display:inline-block;
+	font-family:"PingFangSC-Regular";
+	font-size: 14px;
+	color: #5868DD;
+}
+
+.search-span-reset-btn:hover {
+	border:1px solid #5868DD;
+	background-color: #6476F4;
+	color:#FFFFFF;
+}
+
+
+/**多个选项样式*/
+.mutiple-search-div-container{
+	margin-top:10px;
+	width:100%;
+	height:70px;
+	background:rgba(247,248,250,1);
+	border:1px solid rgba(231,231,243,1);
+	/**display:none;*/
+	position: relative;
+	/**display:table-cell;
+	vertical-align:middle;*/
+}
+.row-div-one{
+	width:100%;
+	height:40px;
+	display:inline-block;
+	margin: auto;  
+   	position: absolute;  
+   	top: 0; 
+   	left: 0; 
+   	bottom:0; 
+   	right: 0;
+}
+/** 查询列表--检索样式 结束*/
+/** 弹框提示消息样式 开始*/
+.toastWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  display: none;
+  z-index: 2001;
+}
+.toastWrapper .toastBox {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 auto;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+}
+.toastWrapper .toastBox .icon {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex: 0 0 14px;
+  margin-left: 16px;
+  color: #ffffff;
+  font-size: 10px;
+  text-align: center;
+}
+.toastWrapper .toastBox .text {
+  font-size: 14px;
+  flex: 1 1 auto;
+  margin: 0 8px;
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toastWrapper .toastBox .close {
+  font-size: 26px;
+  flex: 0 0 16px;
+  margin-right: 16px;
+  position: relative;
+  top: -2px;
+  cursor: pointer;
+}
+.toastWrapper .toastWrapper_error {
+  border-color: #FFA39E;
+  background: #FFF1F0;
+}
+.toastWrapper .toastWrapper_error .icon {
+  background: #F5222D;
+  line-height: 13px;
+}
+.toastWrapper .toastWrapper_info {
+  border-color: #91D5FF;
+  background: #E6F7FF;
+}
+.toastWrapper .toastWrapper_info .icon {
+  background: #1890FF;
+  line-height: 12px;
+}
+.toastWrapper .toastWrapper_warn {
+  border-color: #FFE58F;
+  background: #FFFBE6;
+}
+.toastWrapper .toastWrapper_warn .icon {
+  background: #FAAD14;
+  line-height: 13px;
+}
+.toastWrapper .toastWrapper_succ {
+  border-color: #B7EB8F;
+  background: #F6FFED;
+}
+.toastWrapper .toastWrapper_succ .icon {
+  width: 14px;
+  height: 14px;
+}
+/** 弹框提示消息样式 结束*/
+/** 批量操作样式开始*/
+.batch-title-span{
+	display:inline-block;
+	position:relative;
+	left:0px;
+	width:74px;
+	height:40px;
+	vertical-align:top;
+}
+.import-movie-btn{
+	width:80px;
+	/*
+	display:inline-block;
+	position:relative;
+	left:0px;
+	height:40px;
+	vertical-align:top;
+	background:rgba(88,104,221,1);
+	border-radius:2px;
+	text-align:center;
+	cursor:pointer;
+	*/
+}
+.import-movie-font{
+	width:56px;
+	height:20px;
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	font-weight:400;
+	color:rgba(255,255,255,1);
+	line-height:40px;
+}
+/** 批量操作样式结束*/
+
+/**日期样式调整开始*/
+/**日期图片*/
+.search-datepicker-img {
+	width: 310px;
+	height: 32px;
+	font-family: "PingFangSC-Regular";
+	font-size: 14px;
+	color:#222222;
+	font-weight:normal;
+	padding-left:10px;
+	padding-right: 20px;
+	background-color: #fff;
+	background-image: url(../../images/datapick.png);
+	background-repeat:no-repeat;
+	background-position: 97%;
+	border: 1px solid #e7e7eb;
+	cursor: pointer;
+	line-height:32px;
+	border-radius:4px;
+}
+/**日期外框*/
+.date-input-css{
+	width:350px;
+	height:40px
+}
+/**日期框选中字体*/
+.daterangepicker td.active, .daterangepicker td.active:hover{
+	background-color:rgba(84,120,255,1);
+}
+/**日期确认按钮*/
+.date-btn-success{
+	background-color: #5868DD;
+	border-radius:4px;
+	font-family:"PingFangSC-Regular";
+	font-size: 14px;
+	color: rgba(255,255,255,1);
+}
+/**日期确认按钮高亮*/
+.date-btn-success:hover {
+	background-color: #6476F4;
+	color: #ffffff;
+}
+
+

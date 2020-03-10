@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.video.VideoSqlMapper" > 
+	<resultMap id="resultMap" 				type="com.mz.bean.video.VideoBean" >
+		<result column="video_id" 			property="videoId"/>
+		<result column="video_name" 		property="videoName"/>
+		<result column="classify_id" 		property="classifyId"/>
+		<result column="img_url" 			property="imgUrl"/>
+		<result column="video_tag" 			property="videoTag"/>
+		<result column="user_id" 			property="userId"/>
+		<result column="standard" 			property="standard"/>
+		<result column="is_share" 			property="isShare"/>
+		<result column="platform_id" 		property="platformId"/>
+		<result column="create_time" 		property="createTime"/>
+		<result column="video_long" 		property="videoLong"/>
+		<result column="video_url_480" 		property="videoUrl480"/>
+		<result column="video_url_720" 		property="videoUrl720"/>
+		<result column="video_url_1080" 	property="videoUrl1080"/>
+		<result column="user_name" 			property="userName"/>
+		<result column="classify_name" 		property="classifyName"/>
+		<result column="video_source_name" 	property="videoSourceName"/>
+		<result column="description" 		property="description"/>
+	</resultMap>
+	
+	<resultMap id="resultTag" 				type="com.mz.bean.video.TagBean" >
+		<result column="tag_id" 			property="tagId"/>
+		<result column="tag_name" 			property="tagName"/>
+		<result column="word" 				property="word"/>
+	</resultMap>
+	
+	
+	<!-- 获取成品库列表页数据 -->
+	<select id="getVideoList" parameterType="com.mz.bean.video.VideoBean" resultMap="resultMap">
+		select 
+			a.video_id,
+			a.video_name,
+			a.video_long,
+			a.standard,
+			b.classify_name,
+			a.video_tag,
+			c.user_name,
+			a.is_share,
+			date_format(a.create_time,'%Y-%m-%d %H:%i:%s') create_time
+		from 
+		   t_video a
+		   left join t_classify b
+		   on a.classify_id=b.classify_id
+		   left join t_user c
+		   on a.user_id=c.user_id
+		   <if test="videoSourceName != null and videoSourceName != '' "> 
+			    inner join t_video_source d
+			    on a.video_source_id=d.video_source_id
+		   </if>
+		   
+		   <where>
+		   		<if test="videoName != null and videoName != '' "> 
+		    		and a.video_name like CONCAT('%','${videoName}','%')
+		   		</if>
+		   		
+		   		<if test="videoSourceName != null and videoSourceName != '' "> 
+		   		 	and d.video_source_name like CONCAT('%','${videoSourceName}','%')
+		   		</if>
+		   		
+		   		<if test="classifyId != null and classifyId != '' "> 
+		   			and a.classify_id=#{classifyId}
+		   		</if>
+		   		
+		   		<if test="videoTag != null and videoTag != '' "> 
+		   			and a.video_tag=#{videoTag}
+		   		</if>
+		   		
+		   		<if test="userId != null and userId != '' "> 
+		   			and a.user_id=#{userId}
+		   		</if>
+		   		
+		   		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''"> 
+			   		 and a.create_time between #{beginTime} and #{endTime}
+				</if>
+		   </where>
+	</select>
+	
+	<!-- 获取详情数据 -->
+	<select id="getDataView" parameterType="com.mz.bean.video.VideoBean" resultMap="resultMap">
+		select 
+			c.*,
+			d.video_source_name
+		from 
+		(
+			select 
+				a.video_id,
+				a.video_name,
+				a.standard,
+				b.classify_name,
+				a.img_url,
+				a.video_tag,
+				a.is_share,
+				a.video_url_480,
+				a.video_url_720,
+				a.video_url_1080,
+				a.video_source_id,
+				a.description
+			 from 
+			 	t_video a,
+			 	t_classify b 
+			 where
+			 	1=1
+			 and a.classify_id=b.classify_id
+			 and a.video_id=#{videoId}
+		 ) c
+		 left join t_video_source d on c.video_source_id=d.video_source_id
+	</select>
+	
+	<select id="getTagList" resultMap="resultTag">
+		select 
+			a.tag_id,
+			a.tag_name,
+			b.word  
+		from 
+			t_tag a,
+			t_word_encoding b 
+		where
+			1=1 
+			and a.tag_type='video'
+			and a.status=1
+			and CONV(HEX(LEFT(CONVERT(a.tag_name USING gbk ),1)),16,10) between b.begin_code and b.end_code 
+			ORDER BY convert(a.tag_name using gbk) ASC;
+	</select>
+	
+	
+	<select id="getVideoListById" parameterType="com.mz.bean.video.VideoBean" resultMap="resultMap">
+		select 
+			a.video_id,
+			a.video_name,
+			a.img_url,
+			a.video_tag,
+			a.standard,
+			a.create_time,
+			a.video_long,
+			a.video_url_480,
+			a.video_url_720,
+			a.video_url_1080,
+			a.description
+		from 
+			t_video a
+		where
+		    1=1
+		    and a.video_id in (${videoId})
+	</select>
+	
+	<!-- 修改视频信息 -->
+	<update id="updateVideo"  parameterType="com.mz.bean.video.VideoBean">
+		update 
+			t_video
+		set 
+			video_name=#{videoName},
+			img_url=#{imgUrl},
+			video_tag=#{videoTag},
+			is_share=#{isShare},
+			description=#{description}
+		where
+			video_id=#{videoId}
+	</update>
+</mapper>   

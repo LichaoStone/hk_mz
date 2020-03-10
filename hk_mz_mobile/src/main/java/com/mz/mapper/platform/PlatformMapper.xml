@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.platform.PlatformMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.platform.Platform" >
+		<result column="platform_id" property="platformId"/>
+		<result column="platform_name" property="platformName"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<!-- t_platform table all fields -->
+	<sql id="Base_Column_List" >
+			platform_id,
+			platform_name,
+			status,
+			create_time
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertPlatform" parameterType="com.mz.bean.platform.Platform" >
+		insert into t_platform(
+				platform_id,
+				platform_name,
+				status,
+				create_time
+		)values (
+				#{platformId,jdbcType=VARCHAR},
+				#{platformName,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updatePlatform" parameterType="com.mz.bean.platform.Platform" >
+	 	update t_platform set
+	 
+				platform_name = #{platformName,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR}
+		where platform_id = #{platformId}
+	</update>
+	
+	<delete id="deletePlatform" parameterType="com.mz.bean.platform.Platform">
+		delete from t_platform where platform_id = #{platformId}
+	</delete> 
+
+	<update id="updatePlatformBySelective" parameterType="com.mz.bean.platform.Platform" >
+		update t_platform  
+		<set> 
+					<if test="platformName != null and platformName != ''">
+					    platform_name = #{platformName},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+		</set>
+		where platform_id = #{platformId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="platformId != null">
+				    and platform_id = #{platformId}
+				</if>
+				<if test="platformName != null and platformName != ''">
+				    and platform_name = #{platformName}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.platform.vo.PlatformVo" >
+	
+	</resultMap>
+	<!-- t_platform 信息 -->
+	<select id="getPlatformVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_platform
+		where platform_id = #{platformId}
+	</select>
+	 
+	 <select id="getPlatformCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_platform 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_platform列表 -->
+	<select id="getPlatformListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_platform 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

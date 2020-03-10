@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.tag.TagMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.tag.Tag" >
+		<result column="tag_id" property="tagId"/>
+		<result column="tag_name" property="tagName"/>
+		<result column="status" property="status"/>
+		<result column="create_time" property="createTime"/>
+		<result column="tag_type" property="tagType"/>
+	</resultMap>
+	
+	<!-- t_tag table all fields -->
+	<sql id="Base_Column_List" >
+			tag_id,
+			tag_name,
+			status,
+			create_time,
+			tag_type
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertTag" parameterType="com.mz.bean.tag.Tag" >
+		insert into t_tag(
+				tag_id,
+				tag_name,
+				status,
+				create_time,
+				tag_type
+		)values (
+				#{tagId,jdbcType=VARCHAR},
+				#{tagName,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{tagType,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateTag" parameterType="com.mz.bean.tag.Tag" >
+	 	update t_tag set
+	 
+				tag_name = #{tagName,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				tag_type = #{tagType,jdbcType=VARCHAR}
+		where tag_id = #{tagId}
+	</update>
+	
+	<delete id="deleteTag" parameterType="com.mz.bean.tag.Tag">
+		delete from t_tag where tag_id = #{tagId}
+	</delete> 
+
+	<update id="updateTagBySelective" parameterType="com.mz.bean.tag.Tag" >
+		update t_tag  
+		<set> 
+					<if test="tagName != null and tagName != ''">
+					    tag_name = #{tagName},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="tagType != null and tagType != ''">
+					    tag_type = #{tagType},
+					</if>
+		</set>
+		where tag_id = #{tagId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="tagId != null">
+				    and tag_id = #{tagId}
+				</if>
+				<if test="tagName != null and tagName != ''">
+				    and tag_name = #{tagName}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="tagType != null and tagType != ''">
+				    and tag_type = #{tagType}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.tag.vo.TagVo" >
+	
+	</resultMap>
+	<!-- t_tag 信息 -->
+	<select id="getTagVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_tag
+		where tag_id = #{tagId}
+	</select>
+	 
+	 <select id="getTagCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_tag 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_tag列表 -->
+	<select id="getTagListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_tag 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

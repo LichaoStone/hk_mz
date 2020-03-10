@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.permissions.PermissionsMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.permissions.Permissions" >
+		<result column="permissions_id" property="permissionsId"/>
+		<result column="role_id" property="roleId"/>
+		<result column="permissions_type" property="permissionsType"/>
+		<result column="source_id" property="sourceId"/>
+	</resultMap>
+	
+	<!-- t_permissions table all fields -->
+	<sql id="Base_Column_List" >
+			permissions_id,
+			role_id,
+			permissions_type,
+			source_id
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertPermissions" parameterType="com.mz.bean.permissions.Permissions" >
+		insert into t_permissions(
+				permissions_id,
+				role_id,
+				permissions_type,
+				source_id
+		)values (
+				#{permissionsId,jdbcType=VARCHAR},
+				#{roleId,jdbcType=VARCHAR},
+				#{permissionsType,jdbcType=VARCHAR},
+				#{sourceId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updatePermissions" parameterType="com.mz.bean.permissions.Permissions" >
+	 	update t_permissions set
+	 
+				role_id = #{roleId,jdbcType=VARCHAR},
+				permissions_type = #{permissionsType,jdbcType=VARCHAR},
+				source_id = #{sourceId,jdbcType=VARCHAR}
+		where permissions_id = #{permissionsId}
+	</update>
+	
+	<delete id="deletePermissions" parameterType="com.mz.bean.permissions.Permissions">
+		delete from t_permissions where permissions_id = #{permissionsId}
+	</delete> 
+
+	<update id="updatePermissionsBySelective" parameterType="com.mz.bean.permissions.Permissions" >
+		update t_permissions  
+		<set> 
+					<if test="roleId != null">
+					    role_id = #{roleId},
+					</if>
+					<if test="permissionsType != null and permissionsType != ''">
+					    permissions_type = #{permissionsType},
+					</if>
+					<if test="sourceId != null">
+					    source_id = #{sourceId},
+					</if>
+		</set>
+		where permissions_id = #{permissionsId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="permissionsId != null">
+				    and permissions_id = #{permissionsId}
+				</if>
+				<if test="roleId != null">
+				    and role_id = #{roleId}
+				</if>
+				<if test="permissionsType != null and permissionsType != ''">
+				    and permissions_type = #{permissionsType}
+				</if>
+				<if test="sourceId != null">
+				    and source_id = #{sourceId}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.permissions.vo.PermissionsVo" >
+	
+	</resultMap>
+	<!-- t_permissions 信息 -->
+	<select id="getPermissionsVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_permissions
+		where permissions_id = #{permissionsId}
+	</select>
+	 
+	 <select id="getPermissionsCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_permissions 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_permissions列表 -->
+	<select id="getPermissionsListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_permissions 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	
+	<delete id="deletePermissionsByRoleId" parameterType="java.lang.Integer">
+		delete from t_permissions where role_id = #{roleId}
+	</delete> 
+	
+	<insert id="batchInsertPermissions" parameterType="com.mz.bean.permissions.Permissions" >
+		insert into t_permissions(
+				role_id,
+				permissions_type,
+				source_id
+		)values 
+		<foreach collection ="list" item="bean" index= "index" separator =",">
+			(
+					#{bean.roleId,jdbcType=VARCHAR},
+					#{bean.permissionsType,jdbcType=VARCHAR},
+					#{bean.sourceId,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+</mapper>   

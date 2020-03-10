@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.movie.MovieMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.movie.Movie" >
+		<result column="movie_id" property="movieId"/>
+		<result column="movie_name" property="movieName"/>
+		<result column="movie_tag" property="movieTag"/>
+		<result column="user_id" property="userId"/>
+		<result column="standard" property="standard"/>
+		<result column="create_time" property="createTime"/>
+		<result column="movie_long" property="movieLong"/>
+		<result column="video_url_480" property="videoUrl480"/>
+		<result column="video_url_720" property="videoUrl720"/>
+		<result column="video_url_1080" property="videoUrl1080"/>
+		<result column="status" property="status"/>
+		<result column="complate_time" property="complateTime"/>
+		<result column="copy_begin_time" property="copyBeginTime"/>
+		<result column="copy_end_time" property="copyEndTime"/>
+		<result column="show_time" property="showTime"/>
+		<result column="director" property="director"/>
+		<result column="national" property="national"/>
+		<result column="language" property="language"/>
+		<result column="main_actor" property="mainActor"/>
+		<result column="subdescription" property="subdescription"/>
+		<result column="source_id" property="sourceId"/>
+	</resultMap>
+	
+	<!-- t_movie table all fields -->
+	<sql id="Base_Column_List" >
+			movie_id,
+			movie_name,
+			movie_tag,
+			user_id,
+			standard,
+			create_time,
+			movie_long,
+			video_url_480,
+			video_url_720,
+			video_url_1080,
+			status,
+			complate_time,
+			copy_begin_time,
+			copy_end_time,
+			show_time,
+			director,
+			national,
+			language,
+			main_actor,
+			subdescription,
+			source_id
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertMovie" useGeneratedKeys="true" keyProperty="movieId" parameterType="com.mz.bean.movie.Movie" >
+		insert into t_movie(
+				movie_id,
+				movie_name,
+				movie_tag,
+				user_id,
+				standard,
+				create_time,
+				movie_long,
+				video_url_480,
+				video_url_720,
+				video_url_1080,
+				status,
+				complate_time,
+				copy_begin_time,
+				copy_end_time,
+				show_time,
+				director,
+				national,
+				language,
+				main_actor,
+				subdescription,
+				source_id
+		)values (
+				#{movieId,jdbcType=VARCHAR},
+				#{movieName,jdbcType=VARCHAR},
+				#{movieTag,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{standard,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{movieLong,jdbcType=VARCHAR},
+				#{videoUrl480,jdbcType=VARCHAR},
+				#{videoUrl720,jdbcType=VARCHAR},
+				#{videoUrl1080,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{complateTime,jdbcType=VARCHAR},
+				#{copyBeginTime,jdbcType=VARCHAR},
+				#{copyEndTime,jdbcType=VARCHAR},
+				#{showTime,jdbcType=VARCHAR},
+				#{director,jdbcType=VARCHAR},
+				#{national,jdbcType=VARCHAR},
+				#{language,jdbcType=VARCHAR},
+				#{mainActor,jdbcType=VARCHAR},
+				#{subdescription,jdbcType=VARCHAR},
+				#{sourceId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateMovie" parameterType="com.mz.bean.movie.Movie" >
+	 	update t_movie set
+	 
+				movie_name = #{movieName,jdbcType=VARCHAR},
+				movie_tag = #{movieTag,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				standard = #{standard,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				movie_long = #{movieLong,jdbcType=VARCHAR},
+				video_url_480 = #{videoUrl480,jdbcType=VARCHAR},
+				video_url_720 = #{videoUrl720,jdbcType=VARCHAR},
+				video_url_1080 = #{videoUrl1080,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				complate_time = #{complateTime,jdbcType=VARCHAR},
+				copy_begin_time = #{copyBeginTime,jdbcType=VARCHAR},
+				copy_end_time = #{copyEndTime,jdbcType=VARCHAR},
+				show_time = #{showTime,jdbcType=VARCHAR},
+				director = #{director,jdbcType=VARCHAR},
+				national = #{national,jdbcType=VARCHAR},
+				language = #{language,jdbcType=VARCHAR},
+				main_actor = #{mainActor,jdbcType=VARCHAR},
+				subdescription = #{subdescription,jdbcType=VARCHAR},
+				source_id = #{sourceId,jdbcType=VARCHAR}
+		where movie_id = #{movieId}
+	</update>
+	
+	<delete id="deleteMovie" parameterType="com.mz.bean.movie.Movie">
+		delete from t_movie where movie_id = #{movieId}
+	</delete> 
+
+	<update id="updateMovieBySelective" parameterType="com.mz.bean.movie.Movie" >
+		update t_movie  
+		<set> 
+					national = #{national},
+					language = #{language},
+					<if test="movieName != null and movieName != ''">
+					    movie_name = #{movieName},
+					</if>
+					<if test="movieTag != null and movieTag != ''">
+					    movie_tag = #{movieTag},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="standard != null and standard != ''">
+					    standard = #{standard},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="movieLong != null and movieLong != ''">
+					    movie_long = #{movieLong},
+					</if>
+					<if test="videoUrl480 != null and videoUrl480 != ''">
+					    video_url_480 = #{videoUrl480},
+					</if>
+					<if test="videoUrl720 != null and videoUrl720 != ''">
+					    video_url_720 = #{videoUrl720},
+					</if>
+					<if test="videoUrl1080 != null and videoUrl1080 != ''">
+					    video_url_1080 = #{videoUrl1080},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="complateTime != null">
+					    complate_time = #{complateTime},
+					</if>
+					<if test="copyBeginTime != null">
+					    copy_begin_time = #{copyBeginTime},
+					</if>
+					<if test="copyEndTime != null">
+					    copy_end_time = #{copyEndTime},
+					</if>
+					<if test="showTime != null">
+					    show_time = #{showTime},
+					</if>
+					<if test="director != null and director != ''">
+					    director = #{director},
+					</if>
+					<if test="mainActor != null and mainActor != ''">
+					    main_actor = #{mainActor},
+					</if>
+					<if test="subdescription != null and subdescription != ''">
+					    subdescription = #{subdescription},
+					</if>
+					<if test="sourceId != null and sourceId != ''">
+					    source_id = #{sourceId},
+					</if>
+		</set>
+		where movie_id = #{movieId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="movieId != null">
+				    and movie_id = #{movieId}
+				</if>
+				<if test="movieName != null and movieName != ''">
+				    and movie_name like CONCAT('%',#{movieName},'%')
+				</if>
+				<if test="movieTag != null and movieTag != ''">
+				    and movie_tag like CONCAT('%',#{movieTag},'%')
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="standard != null and standard != ''">
+				    and standard = #{standard}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="movieLong != null and movieLong != ''">
+				    and movie_long = #{movieLong}
+				</if>
+				<if test="videoUrl480 != null and videoUrl480 != ''">
+				    and video_url_480 = #{videoUrl480}
+				</if>
+				<if test="videoUrl720 != null and videoUrl720 != ''">
+				    and video_url_720 = #{videoUrl720}
+				</if>
+				<if test="videoUrl1080 != null and videoUrl1080 != ''">
+				    and video_url_1080 = #{videoUrl1080}
+				</if>
+				<if test="status != null">
+				    and status = #{status}
+				</if>
+				<if test="startTime !=null and startTime !='' and endTime !=null and endTime !=''">
+	    			and complate_time between #{startTime} and #{endTime}
+	    		</if>
+				<if test="copyBeginTime != null">
+				    and copy_begin_time = #{copyBeginTime}
+				</if>
+				<if test="copyEndTime != null">
+				    and copy_end_time = #{copyEndTime}
+				</if>
+				<if test="showTime != null">
+				    and show_time = #{showTime}
+				</if>
+				<if test="director != null and director != ''">
+				    and director = #{director}
+				</if>
+				<if test="national != null and national != ''">
+				    and national = #{national}
+				</if>
+				<if test="language != null and language != ''">
+				    and language = #{language}
+				</if>
+				<if test="mainActor != null and mainActor != ''">
+				    and main_actor = #{mainActor}
+				</if>
+				<if test="subdescription != null and subdescription != ''">
+				    and subdescription = #{subdescription}
+				</if>
+				<if test="sourceId != null and sourceId != ''">
+				    and source_id = #{sourceId}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.movie.vo.MovieVo" >
+	
+	</resultMap>
+	<!-- t_movie 信息 -->
+	<select id="getMovieVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_movie
+		where movie_id = #{movieId}
+	</select>
+	 
+	 <select id="getMovieCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_movie 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_movie列表 -->
+	<select id="getMovieListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_movie 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

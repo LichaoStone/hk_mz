@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.episode.TvplayEpisodeMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.episode.TvplayEpisode" >
+		<result column="tvplay_episode_id" property="tvplayEpisodeId"/>
+		<result column="tvplay_id" property="tvplayId"/>
+		<result column="episode_name" property="episodeName"/>
+		<result column="episode_num" property="episodeNum"/>
+		<result column="standard" property="standard"/>
+		<result column="create_time" property="createTime"/>
+		<result column="user_id" property="userId"/>
+		<result column="episode_long" property="episodeLong"/>
+		<result column="complate_time" property="complateTime"/>
+		<result column="status" property="status"/>
+		<result column="video_url_480" property="videoUrl480"/>
+		<result column="video_url_720" property="videoUrl720"/>
+		<result column="video_url_1080" property="videoUrl1080"/>
+		<result column="subdescription" property="subdescription"/>
+		<result column="source_id" property="sourceId"/>
+	</resultMap>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.episode.vo.TvplayEpisodeVo" >
+		<result column="tvplay_tag" property="tvplayTag"/>
+		<result column="tvplay_name" property="tvplayName"/>
+	</resultMap>
+	<!-- t_tvplay_episode table all fields -->
+	<sql id="Base_Column_List" >
+			episode.tvplay_episode_id,
+			episode.tvplay_id,
+			episode.episode_name,
+			episode.episode_num,
+			episode.standard,
+			episode.create_time,
+			episode.user_id,
+			episode.episode_long,
+			episode.complate_time,
+			episode.status,
+			episode.video_url_480,
+			episode.video_url_720,
+			episode.video_url_1080,
+			episode.subdescription,
+			episode.source_id
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertTvplayEpisode" parameterType="com.mz.bean.episode.TvplayEpisode" >
+		insert into t_tvplay_episode(
+				tvplay_episode_id,
+				tvplay_id,
+				episode_name,
+				episode_num,
+				standard,
+				create_time,
+				user_id,
+				episode_long,
+				complate_time,
+				status,
+				video_url_480,
+				video_url_720,
+				video_url_1080,
+				subdescription,
+				source_id
+		)values (
+				#{tvplayEpisodeId,jdbcType=VARCHAR},
+				#{tvplayId,jdbcType=VARCHAR},
+				#{episodeName,jdbcType=VARCHAR},
+				#{episodeNum,jdbcType=VARCHAR},
+				#{standard,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{episodeLong,jdbcType=VARCHAR},
+				#{complateTime,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{videoUrl480,jdbcType=VARCHAR},
+				#{videoUrl720,jdbcType=VARCHAR},
+				#{videoUrl1080,jdbcType=VARCHAR},
+				#{subdescription,jdbcType=VARCHAR},
+				#{sourceId,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateTvplayEpisode" parameterType="com.mz.bean.episode.TvplayEpisode" >
+	 	update t_tvplay_episode set
+	 
+				tvplay_id = #{tvplayId,jdbcType=VARCHAR},
+				episode_name = #{episodeName,jdbcType=VARCHAR},
+				episode_num = #{episodeNum,jdbcType=VARCHAR},
+				standard = #{standard,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				episode_long = #{episodeLong,jdbcType=VARCHAR},
+				complate_time = #{complateTime,jdbcType=VARCHAR},
+				status = #{status,jdbcType=VARCHAR},
+				video_url_480 = #{videoUrl480,jdbcType=VARCHAR},
+				video_url_720 = #{videoUrl720,jdbcType=VARCHAR},
+				video_url_1080 = #{videoUrl1080,jdbcType=VARCHAR},
+				subdescription = #{subdescription,jdbcType=VARCHAR},
+				source_id = #{sourceId,jdbcType=VARCHAR}
+		where tvplay_episode_id = #{tvplayEpisodeId}
+	</update>
+	
+	<delete id="deleteTvplayEpisode" parameterType="com.mz.bean.episode.TvplayEpisode">
+		delete from t_tvplay_episode where tvplay_episode_id = #{tvplayEpisodeId}
+	</delete> 
+
+	<update id="updateTvplayEpisodeBySelective" parameterType="com.mz.bean.episode.TvplayEpisode" >
+		update t_tvplay_episode  
+		<set> 
+					<if test="tvplayId != null">
+					    tvplay_id = #{tvplayId},
+					</if>
+					<if test="episodeName != null and episodeName != ''">
+					    episode_name = #{episodeName},
+					</if>
+					<if test="episodeNum != null">
+					    episode_num = #{episodeNum},
+					</if>
+					<if test="standard != null and standard != ''">
+					    standard = #{standard},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="episodeLong != null and episodeLong != ''">
+					    episode_long = #{episodeLong},
+					</if>
+					<if test="complateTime != null">
+					    complate_time = #{complateTime},
+					</if>
+					<if test="status != null">
+					    status = #{status},
+					</if>
+					<if test="videoUrl480 != null and videoUrl480 != ''">
+					    video_url_480 = #{videoUrl480},
+					</if>
+					<if test="videoUrl720 != null and videoUrl720 != ''">
+					    video_url_720 = #{videoUrl720},
+					</if>
+					<if test="videoUrl1080 != null and videoUrl1080 != ''">
+					    video_url_1080 = #{videoUrl1080},
+					</if>
+					subdescription = #{subdescription},
+					<if test="sourceId != null and sourceId != ''">
+					    source_id = #{sourceId},
+					</if>
+		</set>
+		where tvplay_episode_id = #{tvplayEpisodeId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="tvplayEpisodeId != null">
+				    and episode.tvplay_episode_id = #{tvplayEpisodeId}
+				</if>
+				<if test="tvplayId != null">
+				    and episode.tvplay_id = #{tvplayId}
+				</if>
+				<if test="episodeName != null and episodeName != ''">
+				    and  episode.episode_name like CONCAT('%',#{episodeName},'%')
+				</if>
+					<if test="episodeNum != null">
+				    and episode.episode_num = #{episodeNum}
+				</if>
+				<if test="standard != null and standard != ''">
+				    and episode.standard = #{standard}
+				</if>
+				<if test="createTime != null">
+				    and episode.create_time = #{createTime}
+				</if>
+				<if test="userId != null">
+				    and episode.user_id = #{userId}
+				</if>
+				<if test="episodeLong != null and episodeLong != ''">
+				    and episode.episode_long = #{episodeLong}
+				</if>
+				<if test="startTime !=null and startTime !='' and endTime !=null and endTime !=''">
+	    			and episode.complate_time between #{startTime} and #{endTime}
+	    		</if>
+				<if test="status != null">
+				    and episode.status = #{status}
+				</if>
+				<if test="videoUrl480 != null and videoUrl480 != ''">
+				    and episode.video_url_480 = #{videoUrl480}
+				</if>
+				<if test="videoUrl720 != null and videoUrl720 != ''">
+				    and episode.video_url_720 = #{videoUrl720}
+				</if>
+				<if test="videoUrl1080 != null and videoUrl1080 != ''">
+				    and episode.video_url_1080 = #{videoUrl1080}
+				</if>
+				<if test="subdescription != null and subdescription != ''">
+				    and episode.subdescription = #{subdescription}
+				</if>
+				<if test="sourceId != null and sourceId != ''">
+				    and episode.source_id = #{sourceId}
+				</if>
+		</trim>
+	</sql>
+	<!-- t_tvplay_episode 信息 -->
+	<select id="getTvplayEpisodeVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+			tvplay.tvplay_name,
+			<include refid="Base_Column_List" /> 
+		from  
+			t_tvplay_episode episode
+		join  
+			t_tvplay  tvplay
+		  on  
+		  	episode.tvplay_id = tvplay.tvplay_id
+		where episode.tvplay_episode_id = #{tvplayEpisodeId}
+	</select>
+	 
+	 <select id="getTvplayEpisodeCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_tvplay_episode episode
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_tvplay_episode列表 -->
+	<select id="getTvplayEpisodeListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+			tvplay.tvplay_tag,
+			tvplay.tvplay_name,
+			<include refid="Base_Column_List"/>
+		from  
+			t_tvplay_episode episode
+		join  
+			t_tvplay  tvplay
+		  on  
+		  	episode.tvplay_id = tvplay.tvplay_id
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	
+	<!-- 更新剧头中的导入集数和入库集数-->  
+	<update id="updateTvplayNum" parameterType="com.mz.bean.episode.TvplayEpisode" >
+	 	UPDATE t_tvplay play
+			SET play.import_num = (
+				SELECT
+					count(*)
+				FROM
+					t_tvplay_episode episode
+				WHERE
+					episode.tvplay_id = play.tvplay_id
+			),
+			 complate_num = (
+				SELECT
+					count(*)
+				FROM
+					t_tvplay_episode episode
+				WHERE
+					episode.tvplay_id = play.tvplay_id
+				AND episode. STATUS = '3'
+			)
+		where play.tvplay_id = #{tvplayId}
+	</update>
+</mapper>   

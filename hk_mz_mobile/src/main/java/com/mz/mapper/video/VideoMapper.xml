@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.video.VideoMapper" > 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.mz.bean.video.Video" >
+		<result column="video_id" property="videoId"/>
+		<result column="video_name" property="videoName"/>
+		<result column="classify_id" property="classifyId"/>
+		<result column="img_url" property="imgUrl"/>
+		<result column="video_tag" property="videoTag"/>
+		<result column="user_id" property="userId"/>
+		<result column="standard" property="standard"/>
+		<result column="is_share" property="isShare"/>
+		<result column="platform_id" property="platformId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="video_long" property="videoLong"/>
+		<result column="video_url_480" property="videoUrl480"/>
+		<result column="video_url_720" property="videoUrl720"/>
+		<result column="video_url_1080" property="videoUrl1080"/>
+	</resultMap>
+	
+	<!-- t_video table all fields -->
+	<sql id="Base_Column_List" >
+			video_id,
+			video_name,
+			classify_id,
+			img_url,
+			video_tag,
+			user_id,
+			standard,
+			is_share,
+			platform_id,
+			create_time,
+			video_long,
+			video_url_480,
+			video_url_720,
+			video_url_1080
+	</sql>   
+	
+	<!-- 插入记录 -->
+	<insert id="insertVideo" parameterType="com.mz.bean.video.Video" >
+		insert into t_video(
+				video_id,
+				video_name,
+				classify_id,
+				img_url,
+				video_tag,
+				user_id,
+				standard,
+				is_share,
+				platform_id,
+				create_time,
+				video_long,
+				video_url_480,
+				video_url_720,
+				video_url_1080
+		)values (
+				#{videoId,jdbcType=VARCHAR},
+				#{videoName,jdbcType=VARCHAR},
+				#{classifyId,jdbcType=VARCHAR},
+				#{imgUrl,jdbcType=VARCHAR},
+				#{videoTag,jdbcType=VARCHAR},
+				#{userId,jdbcType=VARCHAR},
+				#{standard,jdbcType=VARCHAR},
+				#{isShare,jdbcType=VARCHAR},
+				#{platformId,jdbcType=VARCHAR},
+				#{createTime,jdbcType=VARCHAR},
+				#{videoLong,jdbcType=VARCHAR},
+				#{videoUrl480,jdbcType=VARCHAR},
+				#{videoUrl720,jdbcType=VARCHAR},
+				#{videoUrl1080,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="updateVideo" parameterType="com.mz.bean.video.Video" >
+	 	update t_video set
+	 
+				video_name = #{videoName,jdbcType=VARCHAR},
+				classify_id = #{classifyId,jdbcType=VARCHAR},
+				img_url = #{imgUrl,jdbcType=VARCHAR},
+				video_tag = #{videoTag,jdbcType=VARCHAR},
+				user_id = #{userId,jdbcType=VARCHAR},
+				standard = #{standard,jdbcType=VARCHAR},
+				is_share = #{isShare,jdbcType=VARCHAR},
+				platform_id = #{platformId,jdbcType=VARCHAR},
+				create_time = #{createTime,jdbcType=VARCHAR},
+				video_long = #{videoLong,jdbcType=VARCHAR},
+				video_url_480 = #{videoUrl480,jdbcType=VARCHAR},
+				video_url_720 = #{videoUrl720,jdbcType=VARCHAR},
+				video_url_1080 = #{videoUrl1080,jdbcType=VARCHAR}
+		where video_id = #{videoId}
+	</update>
+	
+	<delete id="deleteVideo" parameterType="com.mz.bean.video.Video">
+		delete from t_video where video_id = #{videoId}
+	</delete> 
+
+	<update id="updateVideoBySelective" parameterType="com.mz.bean.video.Video" >
+		update t_video  
+		<set> 
+					<if test="videoName != null and videoName != ''">
+					    video_name = #{videoName},
+					</if>
+					<if test="classifyId != null">
+					    classify_id = #{classifyId},
+					</if>
+					<if test="imgUrl != null and imgUrl != ''">
+					    img_url = #{imgUrl},
+					</if>
+					<if test="videoTag != null and videoTag != ''">
+					    video_tag = #{videoTag},
+					</if>
+					<if test="userId != null">
+					    user_id = #{userId},
+					</if>
+					<if test="standard != null and standard != ''">
+					    standard = #{standard},
+					</if>
+					<if test="isShare != null">
+					    is_share = #{isShare},
+					</if>
+					<if test="platformId != null">
+					    platform_id = #{platformId},
+					</if>
+					<if test="createTime != null">
+					    create_time = #{createTime},
+					</if>
+					<if test="videoLong != null and videoLong != ''">
+					    video_long = #{videoLong},
+					</if>
+					<if test="videoUrl480 != null and videoUrl480 != ''">
+					    video_url_480 = #{videoUrl480},
+					</if>
+					<if test="videoUrl720 != null and videoUrl720 != ''">
+					    video_url_720 = #{videoUrl720},
+					</if>
+					<if test="videoUrl1080 != null and videoUrl1080 != ''">
+					    video_url_1080 = #{videoUrl1080},
+					</if>
+		</set>
+		where video_id = #{videoId}
+	</update> 
+	<!-- 自定义sql -->	 
+	<!-- 查询条件 -->
+	<sql id="Example_Where_Clause">
+		where 1=1
+		<trim  suffixOverrides="," >
+				<if test="videoId != null">
+				    and video_id = #{videoId}
+				</if>
+				<if test="videoName != null and videoName != ''">
+				    and video_name = #{videoName}
+				</if>
+				<if test="classifyId != null">
+				    and classify_id = #{classifyId}
+				</if>
+				<if test="imgUrl != null and imgUrl != ''">
+				    and img_url = #{imgUrl}
+				</if>
+				<if test="videoTag != null and videoTag != ''">
+				    and video_tag = #{videoTag}
+				</if>
+				<if test="userId != null">
+				    and user_id = #{userId}
+				</if>
+				<if test="standard != null and standard != ''">
+				    and standard = #{standard}
+				</if>
+				<if test="isShare != null">
+				    and is_share = #{isShare}
+				</if>
+				<if test="platformId != null">
+				    and platform_id = #{platformId}
+				</if>
+				<if test="createTime != null">
+				    and create_time = #{createTime}
+				</if>
+				<if test="videoLong != null and videoLong != ''">
+				    and video_long = #{videoLong}
+				</if>
+				<if test="videoUrl480 != null and videoUrl480 != ''">
+				    and video_url_480 = #{videoUrl480}
+				</if>
+				<if test="videoUrl720 != null and videoUrl720 != ''">
+				    and video_url_720 = #{videoUrl720}
+				</if>
+				<if test="videoUrl1080 != null and videoUrl1080 != ''">
+				    and video_url_1080 = #{videoUrl1080}
+				</if>
+		</trim>
+	</sql>
+	<!-- bean 扩展字段  -->
+	<resultMap id="BaseResultMapVo" extends="BaseResultMap" type="com.mz.bean.video.vo.VideoVo" >
+	
+	</resultMap>
+	<!-- t_video 信息 -->
+	<select id="getVideoVoById"  resultMap="BaseResultMapVo" parameterType="Object">
+		select 
+		<include refid="Base_Column_List" /> 
+		from t_video
+		where video_id = #{videoId}
+	</select>
+	 
+	 <select id="getVideoCountByQuery" resultType="java.lang.Long"  parameterType="Object">
+		select count(1)
+		from t_video 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+	 
+	<!-- 查询t_video列表 -->
+	<select id="getVideoListByQuery" resultMap="BaseResultMapVo"  parameterType="Object">
+		select 
+		<include refid="Base_Column_List"/>
+		from t_video 
+		<include refid="Example_Where_Clause"/>
+	</select>	
+</mapper>   

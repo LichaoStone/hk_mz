@@ -1,0 +1,139 @@
+/**重写下拉菜单边框样式**/
+.select2-container--default .select2-selection--single{
+	background:rgba(255,255,255,1);
+    border: 1px solid #E7E7F3;
+    border-radius: 4px;
+}
+
+/**重写下拉菜单展开样式**/
+.select2-container--default.select2-container--open .select2-selection--single{
+	border: 1px solid #4777FF;
+    outline: 0;
+}
+
+/**重写下拉菜单选中样式**/
+.select2-container--default.select2-container--focus .select2-selection--single{
+	border: 1px solid #4777FF;
+    outline: 0;
+}
+
+/**确定按钮**/
+.search-btn-span-sure{
+    float:right;
+	width:80px;
+	height:40px;
+	background:rgba(88,104,221,1);
+	border-radius:4px;
+	text-align:-webkit-center;
+	color:#FFFFFF;
+	cursor: pointer;
+}
+
+/**取消按钮**/
+.search-btn-span-cancel{
+    float:right;
+	width:80px;
+	height:40px;
+	background:#F7F8FA;
+	border-radius:4px;
+	border:1px solid #E7E7F3;
+	text-align:-webkit-center;
+	margin-left:10px;
+	cursor: pointer;
+}
+
+.search-btn-span-sure:hover{
+	background-color: #6476F4;
+}
+
+.search-btn-span-cancel:hover{
+	background-color: #6476F4;
+	color:#FFFFFF;
+}
+
+
+.bella-checkbox{
+    position: relative;
+}
+/** 将初始的checkbox的样式改变 */
+.bella-checkbox input[type="checkbox"] {
+    opacity: 0; /*将初始的checkbox隐藏起来*/
+}
+ 
+/** 设计新的checkbox，位置 */
+.bella-checkbox label:before {
+    content: '';
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+    background: #fff;
+}
+ 
+/** 点击初始的checkbox，将新的checkbox关联起来 */
+.bella-checkbox input[type="checkbox"]:checked + label:after {
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    content: "\e013";
+    top: 15%;
+    left: 10%;
+    position: absolute;
+    font-size: 11px;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+    color: #333;
+}
+ 
+.bella-checkbox label {
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    left: 10px;
+}
+
+
+
+/**视频编辑--九宫格**/
+.ninebox{
+	margin-top:20px;
+	margin-left:20px;
+	margin-bottom:14px;
+	margin-right:20px;
+	border:1px solid #D4D4D4;
+	height: 110px;
+}
+
+.ninebox-smallbox{
+	height: 20px;
+	width: 20px;
+	background-color: #BCBABE;
+	border-radius:2px;
+	float:left;
+	margin-left:20px;
+	position: absolute;
+	margin: auto;
+	top: 0px;
+	left:0px;
+	right:0px;
+	bottom:0px;
+	cursor: pointer;
+}
+
+.ninebox-smallbox-selected{
+	background-color: #5868DD;
+}
+
+
+.ninebox-cloumn{
+	float:left;
+	width:33%;
+	height: 100%;
+	position: relative;
+}
+
+.ninebox-row{
+	width:100%;
+	height:33%;
+}

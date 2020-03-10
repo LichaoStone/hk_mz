@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.mapper.video.VideoSourceSqlMapper" > 
+	<resultMap id="resultMap" 		type="com.mz.bean.video.VideoSourceBean" >
+		<result column="video_source_id" 			property="videoSourceId"/>
+		<result column="video_source_name" 			property="videoSourceName"/>
+		<result column="classify_id" 				property="classifyId"/>
+		<result column="user_id" 					property="userId"/>
+		<result column="video_url" 					property="videoUrl"/>
+		<result column="create_time" 				property="createTime"/>
+		<result column="resolution" 				property="resolution"/>
+		<result column="video_bit_rate" 			property="videoBitRate"/>
+		<result column="file_size" 					property="fileSize"/>
+		<result column="status" 					property="status"/>
+		<result column="is_clean" 					property="isClean"/>
+		<result column="delete_time" 				property="deleteTime"/>
+		<result column="classify_name" 			    property="classifyName"/>
+		<result column="user_name" 					property="userName"/>
+	</resultMap>
+	
+	
+	<resultMap id="resultTranscodeMap" 	type="com.mz.bean.transcode.vo.TranscodeVo" >
+		<result column="transcode_id" 					property="transcodeId"/>
+		<result column="video_source_id" 				property="videoSourceId"/>
+		<result column="video_transcode_id" 			property="videoTranscodeId"/>
+		<result column="standard_id" 					property="standardId"/>
+		<result column="video_url" 						property="videoUrl"/>
+		<result column="create_time" 					property="createTime"/>
+		<result column="user_id" 						property="userId"/>
+		<result column="status" 						property="status"/>
+		<result column="reason" 						property="reason"/>
+		<result column="video_name" 					property="videoName"/>
+		<result column="file_size" 						property="fileSize"/>
+		<result column="video_long" 					property="videoLong"/>
+		<result column="classify_name" 					property="classifyName"/>
+		<result column="standard_name" 					property="standardName"/>
+		<result column="img_url" 					    property="imgUrl"/>
+		<result column="createTimeStr" 					property="createTimeStr"/>
+	</resultMap>
+	
+	
+	<!-- 查询素材库列表页数据 -->
+	<select id="getVideoSourceList" parameterType="com.mz.bean.video.VideoSourceBean" resultMap="resultMap">
+		select 
+			a.video_source_id,
+			a.video_source_name,
+			a.file_size,
+			a.resolution,
+			a.video_bit_rate,
+			b.classify_name,
+			c.user_name,
+			date_format(a.create_time,'%Y-%m-%d %H:%i:%s') create_time,
+			a.img_url
+		from 
+		   t_video_source a
+		   left join t_classify b
+		   on a.classify_id=b.classify_id
+		   left join t_user c
+		   on a.user_id=c.user_id
+		 <where>
+		 		and a.status=1
+				<if test="videoSourceName != null and videoSourceName != '' ">
+					and a.video_source_name like CONCAT('%','${videoSourceName}','%')
+				</if>		 
+				
+				<if test="classifyId != null and classifyId != '' ">
+					and b.classify_id=#{classifyId}
+				</if>	
+				
+				<if test="userId != null and userId != '' ">
+					and c.user_id=#{userId}
+				</if>	
+				
+				<if test="beginTime != null and beginTime != '' and endTime != null and endTime !='' ">
+					and a.create_time between #{beginTime} and #{endTime}
+				</if>
+		 </where>
+	</select>
+	
+	<!-- 查询转码列表 -->
+	<select id="getTranscodingList" parameterType="com.mz.bean.transcode.vo.TranscodeVo" resultMap="resultTranscodeMap">
+		select
+			a.transcode_id,
+			date_format(a.create_time,'%Y-%m-%d %H:%i:%s') createTimeStr, 
+			a.video_name,
+			a.file_size,
+			a.video_long,
+			b.standard_name,
+			a.classify_name,
+			a.status
+		from 
+		     t_transcode a
+		     left join t_standard b
+		     on a.standard_id=b.standard_id
+		     <where>
+		     		and a.create_time <![CDATA[ >=  ]]> DATE_SUB(NOW(),INTERVAL 2 DAY)
+		     	
+		     	<if test="status != null and status != '' ">
+		     		and a.status=#{status}
+		     	</if>
+		     </where>
+		     order by a.create_time desc
+	</select>
+	
+	<!-- 查询回收站列表 -->
+	<select id="getDustbinList" parameterType="com.mz.bean.video.VideoSourceBean" resultMap="resultMap">
+		select 
+			a.video_source_id,
+			a.video_source_name,
+			a.classify_id,
+			a.user_id,
+			a.video_url,
+			date_format(a.create_time,'%Y-%m-%d %H:%i:%s') create_time,
+			a.resolution,
+			a.video_bit_rate,
+			a.file_size,
+			a.status,
+			a.is_clean,
+			date_format(a.delete_time,'%Y-%m-%d %H:%i:%s') delete_time,
+			b.classify_name
+		from 
+		    t_video_source a
+		    left join t_classify b on 
+		    a.classify_id=b.classify_id
+		where
+			1=1
+			and a.status=-1
+			and TO_DAYS(NOW()) <![CDATA[ -  ]]> TO_DAYS(a.delete_time) <![CDATA[ <=  ]]> 10; 
+	</select>
+	
+	
+	<select id="getDataView"  parameterType="com.mz.bean.video.VideoSourceBean" resultMap="resultMap">
+		select 
+			video_source_id,
+			video_source_name,
+			classify_id,
+			user_id,
+			video_url,
+			create_time,
+			resolution,
+			video_bit_rate,
+			file_size,
+			status,
+			is_clean,
+			delete_time
+		from 
+		    t_video_source
+		where
+			1=1
+			and video_source_id=#{videoSourceId}
+	</select>
+	
+	
+	<update id="clearBox" parameterType="com.mz.bean.video.VideoSourceBean">
+		update 
+			t_video_source
+		set 
+			is_clear=1
+		where
+			 TO_DAYS(NOW()) <![CDATA[ -  ]]> TO_DAYS(delete_time) <![CDATA[ <=  ]]> 10; 
+	</update>
+	
+	<update id="modifyStatus" parameterType="com.mz.bean.video.VideoSourceBean">
+		update 
+			t_video_source
+		set 
+			status=#{status}
+		where
+			video_source_id=#{videoSourceId}
+	</update>
+</mapper>   
